@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Escriba",
+  "version": "1.6.0",
+  "description": "Transcribe las reuniones de Google Meet a Markdown en Descargas/transcripciones-meet, con el nombre de quien habla.",
+  "permissions": ["downloads", "storage", "unlimitedStorage", "notifications"],
+  "icons": { "128": "icono.png" },
+  "action": { "default_title": "Escriba", "default_popup": "menu.html" },
+  "background": { "service_worker": "fondo.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["pagina.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["logica.js", "contenido.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
