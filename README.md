@@ -1,70 +1,93 @@
 # Escriba
 
-Extensión de navegador que transcribe tus reuniones de Google Meet a Markdown, con el
-nombre de quien habla. No entra un bot a la reunión y nada sale de tu máquina: lee los
-subtítulos que Meet ya genera.
+Browser extension that transcribes your Google Meet meetings to Markdown, with the name
+of who is speaking. No bot joins the call and nothing leaves your computer: it reads the
+captions Meet already generates.
 
-## Instalar (Brave, Chrome o Edge)
+[Leer en español](README.es.md)
 
-1. Clona o descarga esta carpeta.
-2. Abre `brave://extensions` (o `chrome://extensions`).
-3. Activa **Modo de desarrollador**.
-4. **Cargar extensión sin empaquetar** y elige esta carpeta.
-5. En `brave://settings/downloads` desactiva **Preguntar dónde guardar cada archivo**;
-   si queda activo, el navegador pregunta en cada reunión.
+## Install (Brave, Chrome or Edge)
 
-## Usar
+1. Clone or download this folder.
+2. Open `brave://extensions` (or `chrome://extensions`).
+3. Turn on **Developer mode**.
+4. **Load unpacked** and pick this folder.
+5. In `brave://settings/downloads` turn off **Ask where to save each file before
+   downloading**; while it is on, the browser asks on every meeting.
 
-Entra a una reunión. La extensión activa los subtítulos sola, los oculta de la pantalla
-(el video recupera ese espacio; la transcripción sigue igual) y el icono de la extensión
-muestra **REC** en rojo (fija el icono en la barra para verlo). Al pasar el cursor por el
-icono se ve cuántas intervenciones lleva. Un clic en el icono abre un menú para pausar
-(**II** en gris) o reanudar, y para ver las transcripciones guardadas.
+Nothing needs to be built: the extension runs straight from the source files.
 
-En el menú del icono, bajo **Ajustes**, se puede apagar **Transcribir automáticamente al
-entrar a una reunión**. Apagado, la extensión no hace nada al entrar: ni enciende los
-subtítulos ni guarda. Para transcribir una reunión concreta, pulsa **Transcribir** en el
-mismo menú.
+## Use
 
-Si deja de poder transcribir más de 20 segundos (subtítulos apagados, o Meet cambió), el
-icono pasa a **!** en ámbar y sale una notificación del sistema. Para verla, Brave debe
-tener permiso de notificaciones en Ajustes del Sistema de macOS.
+Join a meeting. The extension turns the captions on, hides them from the screen (the video
+gets that space back; the transcript is unaffected) and the extension icon shows **REC**
+in red. Pin the icon to the toolbar to see it. Hovering over it shows how many turns have
+been captured.
 
-Al salir de la llamada o cerrar la pestaña, el archivo queda en:
+Clicking the icon opens a menu with:
+
+- the status of the meeting and a button to **Pause** (**II** in gray) or **Resume**;
+- the caption language, with a **Change** button that opens that setting in Meet;
+- the last four transcripts, each with a **Copy** button;
+- **View all transcripts**, a page with search to read, copy, download again or delete them;
+- the settings.
+
+When you leave the call or close the tab, the transcript is saved in two places:
+
+- as a file, in `Downloads/meet-transcripts/2026-11-12 1030 - Meeting title.md`
+  (the folder is `transcripciones-meet` with the browser in Spanish);
+- in the browser, which is what the menu and the transcripts page show. This copy lives
+  only in this browser and is lost if you remove the extension (reloading it keeps it).
+
+If the browser closes abruptly, the transcript is saved when it is opened again.
+
+If transcription stops being possible for more than 20 seconds (captions turned off, or
+Meet changed), the icon turns to **!** in amber and a system notification appears. To see
+it, the browser needs notification permission in the operating system settings.
+
+### Settings
+
+- **Transcribe automatically when I join a meeting** (on by default). When off, the
+  extension does nothing on joining; press **Transcribe** in the menu for the meetings
+  you want.
+- **Warn me if the caption language is not my browser's language** (off by default).
+
+## Good to know
+
+- Meet transcribes in a single language: the one chosen in its caption settings, which it
+  remembers between meetings. The extension cannot tell which language is being spoken; it
+  shows the active one, warns the first time, and can compare it with the browser's.
+- Only what is said after you join is captured, and only while captions are on.
+- Your own voice appears with the label Meet gives you (usually "You").
+- No audio is saved, and neither is the meeting chat.
+- Captions stay hidden while the extension is transcribing.
+
+## If it stops capturing
+
+Google changes Meet's HTML from time to time. Everything that depends on it is in
+`src/content/meet-dom.js`, and `test/fixtures` holds samples of that HTML: update the
+sample with what Meet looks like now and `npm test` shows what broke.
+
+## Development
 
 ```
-Descargas/transcripciones-meet/2026-11-12 1030 - Título de la reunión.md
+npm install     # only the development tools; the extension has no dependencies
+npm run check   # lint, format check, type check and tests
 ```
 
-Cada transcripción queda además guardada en el navegador. El menú del icono muestra las
-últimas cuatro con un botón para copiarlas, y **Ver todas** abre la página completa, con
-buscador, para leerlas, copiarlas, volver a descargarlas o borrarlas. Ese historial vive solo en este navegador y se pierde si quitas la extensión
-(recargarla no lo borra); el archivo de Descargas es la copia de respaldo.
+| Path                         | What it is                                                                                                                                    |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/content/`               | Runs inside Meet: `meet-dom.js` reads Meet's HTML, `layout.js` hides the captions, `watchdog.js` detects failures, `main.js` coordinates them |
+| `src/page/`                  | A small patch that runs in the page's own JavaScript world                                                                                    |
+| `src/background/`            | Service worker: saves the files, keeps the history, paints the icon                                                                           |
+| `src/popup/`, `src/history/` | The menu of the icon and the transcripts page                                                                                                 |
+| `src/shared/`                | Constants, texts, transcript format and history, used by all of the above                                                                     |
+| `_locales/`                  | Texts in English and Spanish                                                                                                                  |
+| `test/`                      | Tests, with samples of Meet's HTML in `test/fixtures`                                                                                         |
 
-Si el navegador se cierra de golpe, la transcripción se guarda al volver a abrirlo.
+Source files are classic scripts, each declaring one global, loaded in the order listed in
+`manifest.json` and in the HTML pages. Types are checked from JSDoc comments.
 
-## A tener en cuenta
-
-- Meet transcribe en un solo idioma: el que tengas elegido en sus subtítulos (lo recuerda
-  entre reuniones). El menú del icono muestra cuál está activo, con un botón **Cambiar**
-  que abre ese ajuste de Meet, y la primera vez sale un aviso. La extensión no puede saber
-  en qué idioma se habla; el ajuste opcional **Avisarme si el idioma de los subtítulos no
-  es el de mi navegador** solo compara esos dos.
-- Solo se captura desde que entras, y mientras los subtítulos estén activos.
-- Tu propia voz aparece con la etiqueta que Meet te pone (normalmente «Tú»).
-- No se guarda audio ni el chat de la reunión.
-
-## Si deja de capturar
-
-Google cambia el HTML de Meet cada cierto tiempo. Si el contador del icono se queda en 0
-mientras alguien habla, lo que hay que ajustar está en el primer bloque de `contenido.js`.
-
-## Probar la lógica
-
-```
-node --test
-```
-
-## Licencia
+## License
 
 [MIT](LICENSE)
