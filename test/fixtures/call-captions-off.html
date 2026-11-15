@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-419">
+  <body>
+    <div>
+      <main style="inset: 64px 16px 80px"></main>
+
+      <!-- Toolbar, with the captions menu open. -->
+      <div style="bottom: 0px; right: 0px; left: 0px">
+        <div role="region" aria-label="Controles de la llamada" tabindex="-1">
+          <button
+            id="menu"
+            role="button"
+            aria-label="Subtítulos y traducción"
+            aria-pressed="false"
+            aria-expanded="true"
+            aria-haspopup="dialog"
+          >
+            <span></span><span></span><span><i>translate_cc</i></span>
+            <div></div>
+          </button>
+          <div role="dialog" aria-label="Subtítulos y traducción">
+            <div>
+              <span>
+                <div>
+                  <button id="turn-on" aria-label="Activar subtítulos">
+                    <span></span>
+                    <span><i>closed_caption_off</i></span>
+                    <span>Activar subtítulos</span>
+                  </button>
+                </div>
+                <div role="tooltip">Activar los subtítulos (C o Mayúsculas + C)</div>
+              </span>
+            </div>
+            <div>
+              <button aria-label="Activar la traducción de voz"><span>Traducir voz</span></button>
+            </div>
+            <div>
+              <button role="button" aria-label="Abrir la configuración de la traducción de voz">
+                <span><i>settings</i></span>
+              </button>
+            </div>
+          </div>
+          <button role="button" aria-label="Abandonar la llamada">
+            <span></span><span></span><span><i>call_end</i></span>
+            <div></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

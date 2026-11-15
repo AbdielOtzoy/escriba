@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es-419">
+  <body>
+    <div>
+      <main style="inset: 64px 16px 296px"></main>
+
+      <!-- The caption strip ("box"): language and style controls plus the caption list. -->
+      <div style="bottom: 80px; right: 0px; left: 0px">
+        <div>
+          <div>
+            <div>
+              <div
+                role="combobox"
+                aria-label="Idioma de la reunión"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                tabindex="0"
+              >
+                <i>language</i>
+                <span><span aria-label="Español (México)">Español (México)</span></span>
+              </div>
+              <div><ul role="listbox" aria-label="Idioma de la reunión" tabindex="-1"></ul></div>
+            </div>
+            <div>
+              <span>
+                <button role="button" aria-label="Tamaño de fuente" aria-expanded="false" aria-haspopup="menu">
+                  <span><i>format_size</i></span>
+                </button>
+              </span>
+              <span>
+                <button role="button" aria-label="Color de la fuente" aria-expanded="false" aria-haspopup="menu">
+                  <span><i>circle</i></span>
+                </button>
+              </span>
+              <span>
+                <button role="button" aria-label="Abrir configuración de subtítulos">
+                  <span><i>settings</i></span>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div role="region" aria-label="Subtítulos" tabindex="0">
+                <div>
+                  <div>
+                    <img />
+                    <div><span>Ana Pérez</span></div>
+                  </div>
+                  <div>Buenos días a todos. Empezamos con el reporte.</div>
+                </div>
+                <div>
+                  <div>
+                    <img />
+                    <div><span>Luis Gómez</span></div>
+                  </div>
+                  <div>Perfecto, yo sigo después.</div>
+                </div>
+                <div><div></div></div>
+                <div>
+                  <div>
+                    <button aria-label="Ir a los subtítulos más recientes">
+                      <span><i>arrow_downward</i></span>
+                      <span>Ir al final</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notices stacked right above the caption strip. -->
+      <div style="bottom: 296px; right: 0px"><div></div></div>
+
+      <!-- Toolbar. -->
+      <div style="bottom: 0px; right: 0px; left: 0px">
+        <div role="region" aria-label="Controles de la llamada" tabindex="-1">
+          <button
+            role="button"
+            aria-label="Subtítulos y traducción"
+            aria-pressed="true"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+          >
+            <span></span><span></span><span><i>translate_cc</i></span>
+            <div></div>
+          </button>
+          <button role="button" aria-label="Abandonar la llamada">
+            <span></span><span></span><span><i>call_end</i></span>
+            <div></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
