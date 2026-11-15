@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="historyTitle">Escriba</title>
+    <link rel="stylesheet" href="../ui/common.css" />
+    <style>
+      body { display: grid; grid-template-columns: 340px 1fr; height: 100vh; }
+      nav { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border); background: var(--panel); }
+      nav h1 { margin: 0; padding: 18px 16px 10px; font-size: 17px; }
+      #search { margin: 0 12px 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+                background: var(--bg); color: inherit; font: inherit; }
+      #list { flex: 1; overflow-y: auto; list-style: none; margin: 0; padding: 0 8px 12px; }
+      #list button { display: block; width: 100%; padding: 9px 10px; border: 0; border-radius: 8px; background: none; text-align: left; }
+      #list button:hover { background: color-mix(in srgb, var(--text) 7%, transparent); }
+      #list button[aria-current='true'] { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+      #list strong, #list span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .notice { margin: 0; padding: 8px 18px; }
+      main { overflow-y: auto; padding: 28px 32px 48px; }
+      article { max-width: 760px; margin: 0 auto; }
+      article h2 { margin: 0 0 4px; font-size: 24px; line-height: 1.25; overflow-wrap: anywhere; }
+      .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+      .actions .danger { margin-left: auto; color: var(--red); }
+      .turn { margin: 0 0 18px; }
+      .turn header { display: flex; gap: 8px; align-items: baseline; }
+      .speaker { font-weight: 650; color: hsl(var(--hue) 60% var(--name-lightness)); }
+      .turn p { margin: 2px 0 6px; font-size: 15px; line-height: 1.55; overflow-wrap: anywhere; }
+      @media (max-width: 760px) {
+        body { display: block; height: auto; }
+        nav { border-right: 0; border-bottom: 1px solid var(--border); }
+        #list { max-height: 40vh; }
+        main { padding: 20px 16px 40px; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav data-i18n-aria-label="meetings">
+      <h1 data-i18n="historyTitle"></h1>
+      <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" data-i18n-aria-label="searchLabel" />
+      <p class="notice muted" id="notice" hidden></p>
+      <ul id="list"></ul>
+    </nav>
+    <main><article id="detail"></article></main>
+    <script src="../shared/constants.js"></script>
+    <script src="../shared/i18n.js"></script>
+    <script src="../shared/transcript.js"></script>
+    <script src="../shared/history.js"></script>
+    <script src="history.js"></script>
+  </body>
+</html>

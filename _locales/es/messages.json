@@ -1,0 +1,116 @@
+{
+  "extName": {
+    "message": "Escriba"
+  },
+  "extDescription": {
+    "message": "Transcribe tus reuniones de Google Meet a Markdown, con el nombre de quien habla. Sin bot en la llamada y sin que nada salga de tu equipo."
+  },
+  "downloadFolder": {
+    "message": "transcripciones-meet"
+  },
+  "fallbackTitle": {
+    "message": "reunión"
+  },
+  "statusIdle": {
+    "message": "Sin reunión en esta pestaña"
+  },
+  "statusReady": {
+    "message": "Esta reunión no se está transcribiendo"
+  },
+  "statusRecording": {
+    "message": "Transcribiendo · $1 intervenciones"
+  },
+  "statusPaused": {
+    "message": "En pausa · $1 intervenciones"
+  },
+  "statusAlert": {
+    "message": "No se está transcribiendo. $1"
+  },
+  "pause": {
+    "message": "Pausar"
+  },
+  "resume": {
+    "message": "Reanudar"
+  },
+  "transcribe": {
+    "message": "Transcribir"
+  },
+  "copy": {
+    "message": "Copiar"
+  },
+  "copied": {
+    "message": "Copiado"
+  },
+  "copyTranscriptOf": {
+    "message": "Copiar la transcripción de $1"
+  },
+  "download": {
+    "message": "Descargar"
+  },
+  "delete": {
+    "message": "Borrar"
+  },
+  "confirmDelete": {
+    "message": "¿Borrar «$1» del navegador? El archivo de Descargas no se toca."
+  },
+  "change": {
+    "message": "Cambiar"
+  },
+  "captionsIn": {
+    "message": "Subtítulos en"
+  },
+  "recent": {
+    "message": "Recientes"
+  },
+  "viewAll": {
+    "message": "Ver todas las transcripciones"
+  },
+  "settings": {
+    "message": "Ajustes"
+  },
+  "settingAutoStart": {
+    "message": "Transcribir automáticamente al entrar a una reunión"
+  },
+  "settingLanguageWarning": {
+    "message": "Avisarme si el idioma de los subtítulos no es el de mi navegador"
+  },
+  "emptyHistory": {
+    "message": "Todavía no hay transcripciones guardadas."
+  },
+  "noResults": {
+    "message": "Nada coincide con la búsqueda."
+  },
+  "historyTitle": {
+    "message": "Escriba · Transcripciones"
+  },
+  "meetings": {
+    "message": "Reuniones"
+  },
+  "searchPlaceholder": {
+    "message": "Buscar por título, persona o texto"
+  },
+  "searchLabel": {
+    "message": "Buscar transcripciones"
+  },
+  "alertCaptionsOff": {
+    "message": "Los subtítulos están apagados y no se pudieron encender."
+  },
+  "alertUnreadable": {
+    "message": "Hay subtítulos en pantalla pero no se pueden leer. Puede que Google Meet haya cambiado."
+  },
+  "notifyNotTranscribingTitle": {
+    "message": "Escriba: no se está transcribiendo"
+  },
+  "notifyLanguageTitle": {
+    "message": "Escriba: idioma de la transcripción"
+  },
+  "notifyLanguage": {
+    "message": "Se transcribe en $1. Si la reunión es en otro idioma, cámbialo desde el icono de la extensión."
+  },
+  "notifyLanguageMismatchTitle": {
+    "message": "Escriba: revisa el idioma"
+  },
+  "notifyLanguageMismatch": {
+    "message": "Los subtítulos están en $1 y tu navegador está en $2. Si la reunión es en $2, cámbialo desde el icono de la extensión."
+  }
+}

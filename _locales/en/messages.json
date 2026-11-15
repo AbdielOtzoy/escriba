@@ -1,0 +1,116 @@
+{
+  "extName": {
+    "message": "Escriba"
+  },
+  "extDescription": {
+    "message": "Transcribes your Google Meet meetings to Markdown, with the name of who is speaking. No bot joins the call and nothing leaves your computer."
+  },
+  "downloadFolder": {
+    "message": "meet-transcripts"
+  },
+  "fallbackTitle": {
+    "message": "meeting"
+  },
+  "statusIdle": {
+    "message": "No meeting in this tab"
+  },
+  "statusReady": {
+    "message": "This meeting is not being transcribed"
+  },
+  "statusRecording": {
+    "message": "Transcribing · $1 turns"
+  },
+  "statusPaused": {
+    "message": "Paused · $1 turns"
+  },
+  "statusAlert": {
+    "message": "Not transcribing. $1"
+  },
+  "pause": {
+    "message": "Pause"
+  },
+  "resume": {
+    "message": "Resume"
+  },
+  "transcribe": {
+    "message": "Transcribe"
+  },
+  "copy": {
+    "message": "Copy"
+  },
+  "copied": {
+    "message": "Copied"
+  },
+  "copyTranscriptOf": {
+    "message": "Copy the transcript of $1"
+  },
+  "download": {
+    "message": "Download"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "confirmDelete": {
+    "message": "Delete “$1” from the browser? The file in Downloads is not touched."
+  },
+  "change": {
+    "message": "Change"
+  },
+  "captionsIn": {
+    "message": "Captions in"
+  },
+  "recent": {
+    "message": "Recent"
+  },
+  "viewAll": {
+    "message": "View all transcripts"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "settingAutoStart": {
+    "message": "Transcribe automatically when I join a meeting"
+  },
+  "settingLanguageWarning": {
+    "message": "Warn me if the caption language is not my browser’s language"
+  },
+  "emptyHistory": {
+    "message": "No transcripts saved yet."
+  },
+  "noResults": {
+    "message": "Nothing matches the search."
+  },
+  "historyTitle": {
+    "message": "Escriba · Transcripts"
+  },
+  "meetings": {
+    "message": "Meetings"
+  },
+  "searchPlaceholder": {
+    "message": "Search by title, person or text"
+  },
+  "searchLabel": {
+    "message": "Search transcripts"
+  },
+  "alertCaptionsOff": {
+    "message": "Captions are off and could not be turned on."
+  },
+  "alertUnreadable": {
+    "message": "There are captions on screen but they cannot be read. Google Meet may have changed."
+  },
+  "notifyNotTranscribingTitle": {
+    "message": "Escriba: not transcribing"
+  },
+  "notifyLanguageTitle": {
+    "message": "Escriba: transcript language"
+  },
+  "notifyLanguage": {
+    "message": "Transcribing in $1. If the meeting is in another language, change it from the extension icon."
+  },
+  "notifyLanguageMismatchTitle": {
+    "message": "Escriba: check the language"
+  },
+  "notifyLanguageMismatch": {
+    "message": "Captions are in $1 and your browser is in $2. If the meeting is in $2, change it from the extension icon."
+  }
+}
