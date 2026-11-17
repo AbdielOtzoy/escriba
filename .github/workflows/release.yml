@@ -1,0 +1,30 @@
+name: Release
+
+# Pushing a tag like v2.0.1 checks the code, packs the extension and publishes a GitHub
+# release with the .zip attached, ready to upload to the Chrome Web Store.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - name: The tag must match the version in manifest.json
+        run: test "v$(node -p "require('./manifest.json').version")" = "$GITHUB_REF_NAME"
+      - name: Pack only what the browser loads
+        run: zip -r "escriba-$GITHUB_REF_NAME.zip" manifest.json _locales icons src LICENSE
+      - name: Publish the release
+        run: gh release create "$GITHUB_REF_NAME" "escriba-$GITHUB_REF_NAME.zip" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
