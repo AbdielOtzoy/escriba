@@ -21,10 +21,10 @@ Dates are `YYYY-MM-DD`, inclusive. `participant` and `query` ignore case and acc
 
 ## Settings
 
-| Environment variable | Default                                                                                                                  | Meaning                                                                                                                               |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `ESCRIBA_DIR`        | the folders Escriba saves to: `~/Downloads/meet-transcripts` and `~/Downloads/transcripciones-meet`, the ones that exist | Folder with the transcripts. Only `.md` files written by Escriba are read; subfolders are not                                         |
-| `ESCRIBA_SELF_NAME`  | not set                                                                                                                  | Your name. Meet labels what you say as "Tú" or "You"; with this set, the server shows and filters by your name. Files are not changed |
+| Environment variable | Default                                                                                                                                | Meaning                                                                                                                               |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `ESCRIBA_DIR`        | `~/Downloads/transcripciones-meet`, plus `~/Downloads/meet-transcripts` if it exists (version 2.0 used it with the browser in English) | Folder with the transcripts. Only `.md` files written by Escriba are read; subfolders are not                                         |
+| `ESCRIBA_SELF_NAME`  | not set                                                                                                                                | Your name. Meet labels what you say as "Tú" or "You"; with this set, the server shows and filters by your name. Files are not changed |
 
 ## Install
 

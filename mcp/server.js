@@ -9,10 +9,10 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import { listMeetings, readMeeting, searchTranscripts } from './meetings.js';
 
-// The extension saves into a subfolder of Downloads named after the browser's language
-// (`downloadFolder` in _locales): read the ones that exist.
+// The extension saves into Downloads/transcripciones-meet. Version 2.0 named the folder
+// after the browser's language, so meet-transcripts may exist too: read the ones that do.
 const downloads = path.join(os.homedir(), 'Downloads');
-const [saved = downloads, ...also] = ['meet-transcripts', 'transcripciones-meet']
+const [saved = downloads, ...also] = ['transcripciones-meet', 'meet-transcripts']
   .map((name) => path.join(downloads, name))
   .filter((dir) => fs.existsSync(dir));
 

@@ -11,6 +11,10 @@
  */
 
 const historyStore = (() => {
+  // The same name whatever the browser's language: it used to be translated, and one
+  // computer ended up with its transcripts split between two folders.
+  const DOWNLOAD_FOLDER = 'transcripciones-meet';
+
   /** Start time encoded at the end of a storage key. @param {string} key */
   const stamp = (key) => Number(key.match(/\d+$/)?.[0] || 0);
 
@@ -55,7 +59,7 @@ const historyStore = (() => {
   function download(fileName, md) {
     return chrome.downloads.download({
       url: 'data:text/markdown;charset=utf-8,' + encodeURIComponent(md),
-      filename: `${i18n.t('downloadFolder')}/${fileName}`,
+      filename: `${DOWNLOAD_FOLDER}/${fileName}`,
       saveAs: false,
       conflictAction: 'uniquify',
     });

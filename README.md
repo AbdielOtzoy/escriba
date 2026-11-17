@@ -34,8 +34,7 @@ Clicking the icon opens a menu with:
 
 When you leave the call or close the tab, the transcript is saved in two places:
 
-- as a file, in `Downloads/meet-transcripts/2026-11-12 1030 - Meeting title.md`
-  (the folder is `transcripciones-meet` with the browser in Spanish);
+- as a file, in `Downloads/transcripciones-meet/2026-11-12 1030 - Meeting title.md`;
 - in the browser, which is what the menu and the transcripts page show. This copy lives
   only in this browser and is lost if you remove the extension (reloading it keeps it).
 

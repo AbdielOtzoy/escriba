@@ -5,9 +5,6 @@
   "extDescription": {
     "message": "Transcribe tus reuniones de Google Meet a Markdown, con el nombre de quien habla. Sin bot en la llamada y sin que nada salga de tu equipo."
   },
-  "downloadFolder": {
-    "message": "transcripciones-meet"
-  },
   "fallbackTitle": {
     "message": "reunión"
   },

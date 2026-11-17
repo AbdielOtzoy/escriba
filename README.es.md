@@ -35,8 +35,7 @@ Un clic en el icono abre un menú con:
 
 Al salir de la llamada o cerrar la pestaña, la transcripción se guarda en dos lugares:
 
-- como archivo, en `Descargas/transcripciones-meet/2026-11-12 1030 - Título de la reunión.md`
-  (la carpeta es `meet-transcripts` con el navegador en inglés);
+- como archivo, en `Descargas/transcripciones-meet/2026-11-12 1030 - Título de la reunión.md`;
 - en el navegador, que es lo que muestran el menú y la página de transcripciones. Esta
   copia vive solo en este navegador y se pierde si quitas la extensión (recargarla no la
   borra).
