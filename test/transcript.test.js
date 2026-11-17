@@ -44,6 +44,26 @@ test('when Meet empties a long block, what was said before is kept', () => {
   );
 });
 
+test('after a pause, only what is said beyond the resume point is kept', () => {
+  const mark = transcript.resumeMark('Hola a todos. Esto fue en pausa');
+  assert.strictEqual(transcript.sinceResume('Hola a todos. Esto fue en pausa', mark), '');
+  // Meet corrects a word said during the pause: the count of words does not change.
+  assert.strictEqual(
+    transcript.sinceResume('Hola a todos. Esto fue en pausa. Ahora sigo', mark),
+    'Ahora sigo',
+  );
+});
+
+test('after a pause, a block that Meet empties is read whole again', () => {
+  const long = Array.from({ length: 60 }, (_, i) => 'w' + i).join(' ');
+  const mark = transcript.resumeMark(long);
+  assert.strictEqual(transcript.sinceResume(long + ' y más', mark), 'y más');
+  assert.strictEqual(transcript.sinceResume('Empiezo de nuevo', mark), 'Empiezo de nuevo');
+  assert.strictEqual(mark.skip, 0);
+  // It stays ordinary even when it grows past the old mark.
+  assert.strictEqual(transcript.sinceResume(long + ' otra vez', mark), long + ' otra vez');
+});
+
 test('a block reused by another person starts a new entry', () => {
   const entries = [];
   const e = transcript.updateEntry(entries, undefined, 'Ana', 'Hola.', 1);

@@ -33,10 +33,13 @@
   let settings = { ...DEFAULT_SETTINGS };
   let languageNoticeShown = true;
 
-  /** Marks caption blocks that were already on screen when a pause ended. */
-  const SKIP = /** @type {Entry} */ ({});
   /** The entry each caption block is feeding. @type {WeakMap<Element, Entry>} */
   let entryByBlock = new WeakMap();
+  /**
+   * Caption blocks that were on screen when a pause ended, and how much to skip of them.
+   * @type {WeakMap<Element, ResumeMark>}
+   */
+  let resumedBlocks = new WeakMap();
   const observer = new MutationObserver(scan);
   /** @type {ReturnType<typeof setInterval> | undefined} */
   let timer;
@@ -77,9 +80,18 @@
 
   function scan() {
     if (!meeting || paused || !region) return;
-    for (const [block, { name, text }] of meetDom.readBlocks(region)) {
+    for (const [block, { name, text: shown }] of meetDom.readBlocks(region)) {
+      let text = shown;
+      const mark = resumedBlocks.get(block);
+      if (mark) {
+        text = transcript.sinceResume(shown, mark);
+        // Meet emptied the block: from here on it is an ordinary one, in a new entry.
+        if (!mark.skip) {
+          resumedBlocks.delete(block);
+          entryByBlock.delete(block);
+        }
+      }
       const previous = entryByBlock.get(block);
-      if (previous === SKIP) continue;
       const before = previous?.text;
       const entry = transcript.updateEntry(meeting.entries, previous, name, text, Date.now());
       if (entry) entryByBlock.set(block, entry);
@@ -110,6 +122,7 @@
     };
     paused = false;
     entryByBlock = new WeakMap();
+    resumedBlocks = new WeakMap();
     publishState();
   }
 
@@ -248,9 +261,13 @@
     paused = !paused;
     alertKey = null;
     watchdog.reset();
-    // What was said during the pause is still on screen when resuming: skip it.
+    // What was said during the pause is still on screen when resuming: skip that part,
+    // and keep what the same person goes on to say in the same block, as a new entry.
     if (!paused && region) {
-      for (const block of meetDom.readBlocks(region).keys()) entryByBlock.set(block, SKIP);
+      for (const [block, { text }] of meetDom.readBlocks(region)) {
+        resumedBlocks.set(block, transcript.resumeMark(text));
+        entryByBlock.delete(block);
+      }
     }
     publishState();
   }

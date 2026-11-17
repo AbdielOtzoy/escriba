@@ -11,6 +11,10 @@
  * @typedef {{ name: string, time: string, paragraphs: string[] }} Turn
  * @typedef {{ title: string, date: string, start: string, duration: number,
  *             participants: string[], language: string, turns: Turn[] }} ParsedTranscript
+ *
+ * A caption block that was on screen when a pause ended: `skip` words of it were said
+ * before or during the pause, `seen` is its word count the last time it was read.
+ * @typedef {{ skip: number, seen: number }} ResumeMark
  */
 
 const transcript = (() => {
@@ -44,6 +48,35 @@ const transcript = (() => {
       entry.text = text;
     }
     return entry;
+  }
+
+  /**
+   * Remembers how much of a caption block was already on screen when a pause ended.
+   * @param {string} text the block's text at that moment
+   * @returns {ResumeMark}
+   */
+  function resumeMark(text) {
+    const words = text.split(/\s+/).filter(Boolean).length;
+    return { skip: words, seen: words };
+  }
+
+  /**
+   * What a caption block says beyond what it showed when the pause ended.
+   *
+   * Counts words, not characters: Meet corrects words while the person talks, which
+   * changes the length of the text but rarely the number of words. When the block gets
+   * much shorter Meet emptied it and started over, so nothing is left to skip
+   * (`mark.skip` becomes 0).
+   *
+   * @param {string} text the block's text now
+   * @param {ResumeMark} mark mutated in place
+   * @returns {string}
+   */
+  function sinceResume(text, mark) {
+    const words = text.split(/\s+/).filter(Boolean);
+    if (words.length < mark.seen - 15) mark.skip = 0;
+    mark.seen = words.length;
+    return mark.skip ? words.slice(mark.skip).join(' ') : text;
   }
 
   /**
@@ -163,5 +196,14 @@ const transcript = (() => {
     return captionLanguage.toLowerCase().startsWith(name.toLowerCase());
   }
 
-  return { updateEntry, toMarkdown, fromMarkdown, fileName, summary, languageMatches };
+  return {
+    updateEntry,
+    resumeMark,
+    sinceResume,
+    toMarkdown,
+    fromMarkdown,
+    fileName,
+    summary,
+    languageMatches,
+  };
 })();

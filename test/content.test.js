@@ -95,6 +95,14 @@ test('a call is transcribed from joining to leaving', async (t) => {
   anaText.textContent += ' Esto no debe quedar.';
   await settle();
   assert.strictEqual(ask(MSG.TOGGLE_PAUSE).state, STATE.RECORDING);
+  await settle();
+  assert.strictEqual(ask(MSG.GET_STATUS).count, 2, 'resuming alone captures nothing');
+
+  // Ana goes on in the same block: only what she says after resuming is captured, even
+  // though Meet corrects a word of what she said during the pause.
+  anaText.textContent = anaText.textContent.replace('quedar.', 'salir.') + ' Esto sí queda.';
+  await settle();
+  assert.strictEqual(ask(MSG.GET_STATUS).count, 3);
 
   // Leaving the call: two ticks outside and the transcript is handed over.
   doc.querySelector('[aria-label="Abandonar la llamada"]').remove();
@@ -112,6 +120,7 @@ test('a call is transcribed from joining to leaving', async (t) => {
     /\*\*Ana Pérez\*\* \(\d\d:\d\d\)\n\nBuenos días a todos\. Empezamos con el reporte de ventas\.\n/,
   );
   assert.match(save.record.md, /\*\*Luis Gómez\*\* \(\d\d:\d\d\)\n\nPerfecto, yo sigo después\.\n/);
-  assert.doesNotMatch(save.record.md, /Esto no debe quedar/);
+  assert.match(save.record.md, /\*\*Ana Pérez\*\* \(\d\d:\d\d\)\n\nEsto sí queda\.\n/);
+  assert.doesNotMatch(save.record.md, /Esto no debe/);
   assert.strictEqual(ask(MSG.GET_STATUS).state, STATE.IDLE);
 });
