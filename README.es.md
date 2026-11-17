@@ -70,6 +70,11 @@ Google cambia el HTML de Meet cada cierto tiempo. Todo lo que depende de él est
 `src/content/meet-dom.js`, y `test/fixtures` guarda muestras de ese HTML: actualiza la
 muestra con lo que Meet tiene ahora y `npm test` dice qué se rompió.
 
+Para reportarlo, abre el menú del icono en la pestaña de Meet y pulsa **Copiar esquema de
+la página** en «¿Dejó de funcionar?», y pégalo en un issue. El esquema lleva las etiquetas,
+los roles y los nombres de iconos de la página, sin nombres, textos ni el código de la
+reunión. No se envía nada: solo va a tu portapapeles.
+
 ## Desarrollo
 
 ```

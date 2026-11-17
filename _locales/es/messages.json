@@ -112,5 +112,17 @@
   },
   "notifyLanguageMismatch": {
     "message": "Los subtítulos están en $1 y tu navegador está en $2. Si la reunión es en $2, cámbialo desde el icono de la extensión."
+  },
+  "reportTitle": {
+    "message": "¿Dejó de funcionar?"
+  },
+  "reportHint": {
+    "message": "Copia un esquema de la página de Meet para pegarlo en un issue. No lleva nombres, textos ni el código de la reunión."
+  },
+  "reportCopy": {
+    "message": "Copiar esquema de la página"
+  },
+  "reportOpenIssue": {
+    "message": "Abrir un issue"
   }
 }

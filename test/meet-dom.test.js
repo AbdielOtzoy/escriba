@@ -156,3 +156,24 @@ test('watchdog reports captions it cannot read', () => {
   assert.strictEqual(watchdog.check(region, 1000), null);
   assert.strictEqual(watchdog.check(region, 1001 + watchdog.GRACE_MS), 'alertUnreadable');
 });
+
+test('skeleton describes the page without any name, text or label', () => {
+  const doc = usePage('call-captions-on.html');
+  doc.querySelector('main').setAttribute('data-meeting-title', 'Daily');
+  doc.querySelector('img').setAttribute('src', 'https://example.com/ana.png');
+  doc.querySelector('main').style.backgroundImage = 'url(https://example.com/ana.png)';
+  const outline = meetDom.skeleton();
+  assert.match(outline, /^lang=es-419 inCall=true captionRegion=true blocks=2\n/);
+  // What the adapter and layout.js look for is there…
+  assert.match(outline, /div role=region aria-label tabindex=0\n/);
+  assert.match(outline, /i "call_end"\n/);
+  assert.match(outline, /main style="inset: 64px 16px 296px" data-meeting-title\n/);
+  assert.match(outline, /button role=button aria-label aria-pressed=true aria-expanded=false/);
+  // …two caption blocks alike are written once…
+  assert.match(outline, /\(same ×1\)/);
+  // …and nothing a person said, is called or can be reached at.
+  assert.doesNotMatch(
+    outline,
+    /Ana|Pérez|Luis|Buenos|Perfecto|Español|Abandonar|Daily|example|abc-defg/,
+  );
+});

@@ -8,6 +8,7 @@
   /** @param {string} id */
   const checkbox = (id) => /** @type {HTMLInputElement} */ (document.getElementById(id));
   const RECENT_COUNT = 4;
+  const NEW_ISSUE_URL = 'https://github.com/AbdielOtzoy/escriba/issues/new';
 
   /** What the main button does in the current state: one of MSG. */
   /** @type {string} */
@@ -24,6 +25,8 @@
    *         | null | undefined} status
    */
   function render(status) {
+    // Offered in any Meet tab, also when the call is not detected: that is when it helps.
+    $('report').hidden = !status;
     if (!status || status.state === STATE.IDLE) return;
     $('dot').className = 'dot ' + status.state;
     $('status').textContent = i18n.statusText(status);
@@ -43,12 +46,25 @@
   /**
    * Sends a message to the Meet tab and renders the status it replies with.
    * @param {string} type one of MSG
+   * @returns {Promise<any>} the reply, or null when the tab is not a Meet tab
    */
   async function ask(type) {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab?.id == null) return;
+    if (tab?.id == null) return null;
     // Fails when the tab is not a Meet tab: the default text stays.
-    render(await chrome.tabs.sendMessage(tab.id, { type }).catch(() => null));
+    const reply = await chrome.tabs.sendMessage(tab.id, { type }).catch(() => null);
+    render(reply);
+    return reply;
+  }
+
+  /** Copies the anonymous outline of the Meet page, for a bug report. */
+  async function copyOutline() {
+    const reply = await ask(MSG.GET_SKELETON);
+    if (!reply?.skeleton) return;
+    const { version } = chrome.runtime.getManifest();
+    await navigator.clipboard.writeText(`Escriba ${version} ${reply.skeleton}`);
+    $('copyOutline').textContent = i18n.t('copied');
+    setTimeout(() => ($('copyOutline').textContent = i18n.t('reportCopy')), 1500);
   }
 
   async function renderRecent() {
@@ -96,6 +112,8 @@
   i18n.localizeDocument(document);
   $('action').onclick = () => ask(action);
   $('viewAll').onclick = () => openHistory();
+  $('copyOutline').onclick = copyOutline;
+  /** @type {HTMLAnchorElement} */ ($('openIssue')).href = NEW_ISSUE_URL;
   // Opens Meet's language setting in the meeting tab; the popup closes to reveal it.
   $('changeLanguage').onclick = async () => {
     await ask(MSG.OPEN_LANGUAGE_SETTINGS);

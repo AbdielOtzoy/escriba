@@ -285,6 +285,9 @@
         break;
       case MSG.GET_STATUS:
         break;
+      case MSG.GET_SKELETON:
+        respond({ ...status(), skeleton: meetDom.skeleton() });
+        return;
       default:
         return;
     }

@@ -68,6 +68,11 @@ Google changes Meet's HTML from time to time. Everything that depends on it is i
 `src/content/meet-dom.js`, and `test/fixtures` holds samples of that HTML: update the
 sample with what Meet looks like now and `npm test` shows what broke.
 
+To report it, open the icon menu in the Meet tab and press **Copy page outline** under
+"Stopped working?", then paste it into an issue. The outline has the tags, roles and icon
+names of the page, and no names, text or meeting code. Nothing is sent: it only goes to
+your clipboard.
+
 ## Development
 
 ```

@@ -112,5 +112,17 @@
   },
   "notifyLanguageMismatch": {
     "message": "Captions are in $1 and your browser is in $2. If the meeting is in $2, change it from the extension icon."
+  },
+  "reportTitle": {
+    "message": "Stopped working?"
+  },
+  "reportHint": {
+    "message": "Copies an outline of the Meet page to paste into an issue. It has no names, no text and no meeting code."
+  },
+  "reportCopy": {
+    "message": "Copy page outline"
+  },
+  "reportOpenIssue": {
+    "message": "Open an issue"
   }
 }

@@ -173,6 +173,81 @@ const meetDom = (() => {
   /** The locale of Meet's interface, which is also the one it writes language names in. */
   const uiLocale = () => document.documentElement.lang || 'en';
 
+  /** Attributes whose values are structural, never a name or a sentence. */
+  const SAFE_VALUES =
+    /^(role|tabindex|aria-(hidden|expanded|pressed|haspopup|live|checked|selected|disabled))$/;
+  /** Inline positions, which layout.js relies on. */
+  const SAFE_STYLE = /^(inset|top|bottom|left|right|height)\s*:\s*[-\d.\s%a-z]+$/;
+
+  /**
+   * One line for an element: tag, structural attributes with their values, and only the
+   * names of the other aria-* and data-* attributes (labels carry people's names).
+   * @param {Element} el
+   */
+  function outlineLine(el) {
+    let line = el.localName;
+    for (const { name, value } of el.attributes) {
+      if (SAFE_VALUES.test(name) && /^[\w-]*$/.test(value)) line += ` ${name}=${value}`;
+      else if (/^(aria|data)-/.test(name)) line += ' ' + name;
+      else if (name === 'style') {
+        const kept = value
+          .split(';')
+          .map((d) => d.trim())
+          .filter((d) => SAFE_STYLE.test(d));
+        if (kept.length) line += ` style="${kept.join('; ')}"`;
+      }
+    }
+    const ownText = [...el.childNodes].some(
+      (n) => n.nodeType === 3 && (n.textContent || '').trim(),
+    );
+    if (!ownText) return line;
+    const text = (el.textContent || '').trim();
+    // Icon ligatures are the only text that is kept.
+    return line + (el.localName === 'i' && /^[a-z0-9_]+$/.test(text) ? ` "${text}"` : ' #text');
+  }
+
+  /**
+   * @param {Element} el
+   * @param {number} depth
+   * @returns {string}
+   */
+  function outline(el, depth) {
+    let out = ' '.repeat(depth) + outlineLine(el) + '\n';
+    if (el.localName === 'svg') return out;
+    let last = '';
+    let repeats = 0;
+    const flush = () => {
+      if (repeats) out += ' '.repeat(depth + 1) + `(same ×${repeats})\n`;
+      repeats = 0;
+    };
+    for (const child of el.children) {
+      if (/^(script|style|link|noscript|template)$/.test(child.localName)) continue;
+      const part = outline(child, depth + 1);
+      if (part === last) repeats++;
+      else {
+        flush();
+        out += last = part;
+      }
+    }
+    flush();
+    return out;
+  }
+
+  /**
+   * An anonymous outline of the page for a bug report: tags, roles, ARIA states, inline
+   * positions and icon names. No text, no label values, no links, no images, so it holds
+   * no names, meeting codes or sentences. The first line says what this adapter finds.
+   * @returns {string}
+   */
+  function skeleton() {
+    const region = captionRegion();
+    return (
+      `lang=${uiLocale()} inCall=${inCall()} captionRegion=${!!region}` +
+      ` blocks=${region ? readBlocks(region).size : 0}\n` +
+      outline(document.body, 0)
+    );
+  }
+
   return {
     inCall,
     captionRegion,
@@ -184,5 +259,6 @@ const meetDom = (() => {
     closeCaptionsMenu,
     meetingTitle,
     uiLocale,
+    skeleton,
   };
 })();

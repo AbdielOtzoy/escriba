@@ -21,6 +21,8 @@ const MSG = Object.freeze({
   START: 'start',
   /** popup → content: open Meet's caption language setting. */
   OPEN_LANGUAGE_SETTINGS: 'open-language-settings',
+  /** popup → content: reply with the status plus an anonymous outline of Meet's page. */
+  GET_SKELETON: 'get-skeleton',
 });
 
 /** What the extension is doing in a Meet tab. */

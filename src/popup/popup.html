@@ -25,7 +25,9 @@
       .all { padding: 10px 14px 14px; }
       .all .button { width: 100%; }
       .setting { display: flex; gap: 8px; align-items: flex-start; padding: 8px 14px; cursor: pointer; }
-      .setting:last-of-type { padding-bottom: 14px; }
+      #reportHint { margin: 0; padding: 4px 14px 0; }
+      .report { display: flex; gap: 8px; padding: 8px 14px 14px; }
+      .report .button { flex: 1; padding: 4px 10px; font-size: 12px; text-align: center; text-decoration: none; color: inherit; }
       .setting input { flex: none; margin: 2px 0 0; accent-color: var(--accent); }
     </style>
   </head>
@@ -52,6 +54,14 @@
       <input type="checkbox" id="languageWarning" />
       <span data-i18n="settingLanguageWarning"></span>
     </label>
+    <section id="report" hidden>
+      <h2 data-i18n="reportTitle"></h2>
+      <p class="muted" id="reportHint" data-i18n="reportHint"></p>
+      <div class="report">
+        <button class="button" id="copyOutline" data-i18n="reportCopy"></button>
+        <a class="button" id="openIssue" target="_blank" rel="noopener" data-i18n="reportOpenIssue"></a>
+      </div>
+    </section>
     <script src="../shared/constants.js"></script>
     <script src="../shared/i18n.js"></script>
     <script src="../shared/transcript.js"></script>
