@@ -40,4 +40,12 @@ module.exports = [
     files: ['test/**/*.js', 'eslint.config.js'],
     languageOptions: { sourceType: 'commonjs', globals: { ...globals.node } },
   },
+  {
+    // Node files whose callbacks run in the page or in the extension's service worker.
+    files: ['e2e/**/*.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: { ...globals.node, ...globals.browser, chrome: 'readonly' },
+    },
+  },
 ];
