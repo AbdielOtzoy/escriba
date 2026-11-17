@@ -1,0 +1,19 @@
+{
+  "name": "escriba-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local MCP server that reads the Google Meet transcripts saved by Escriba",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test meetings.test.js e2e.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  }
+}
