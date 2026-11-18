@@ -68,7 +68,7 @@
   }
 
   async function renderRecent() {
-    const items = (await historyStore.list()).slice(0, RECENT_COUNT);
+    const items = await historyStore.list(RECENT_COUNT);
     $('empty').hidden = items.length > 0;
     $('recent').replaceChildren(
       ...items.map((item) => {

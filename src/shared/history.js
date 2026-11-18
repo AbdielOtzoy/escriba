@@ -18,25 +18,30 @@ const historyStore = (() => {
   /** Start time encoded at the end of a storage key. @param {string} key */
   const stamp = (key) => Number(key.match(/\d+$/)?.[0] || 0);
 
-  /** @returns {Promise<HistoryItem[]>} newest first */
-  async function list() {
-    const all = await chrome.storage.local.get(null);
-    return Object.keys(all)
+  /**
+   * Reads only the transcripts it returns, so the popup does not load the whole history.
+   * @param {number} [limit] how many of the newest to return; all of them by default
+   * @returns {Promise<HistoryItem[]>} newest first
+   */
+  async function list(limit = Infinity) {
+    const keys = (await chrome.storage.local.getKeys())
       .filter((key) => key.startsWith(STORAGE.HISTORY_PREFIX))
       .sort((a, b) => stamp(b) - stamp(a))
-      .map((key) => {
-        const record = /** @type {StoredTranscript & { archivo?: string }} */ (all[key]);
-        // `archivo` is the field name written before version 2.
-        const fileName = record.fileName || record.archivo || '';
-        const data = transcript.fromMarkdown(record.md);
-        return {
-          key,
-          fileName,
-          md: record.md,
-          data,
-          title: data.title || fileName.replace(/\.md$/, ''),
-        };
-      });
+      .slice(0, limit);
+    const all = await chrome.storage.local.get(keys);
+    return keys.map((key) => {
+      const record = /** @type {StoredTranscript & { archivo?: string }} */ (all[key]);
+      // `archivo` is the field name written before version 2.
+      const fileName = record.fileName || record.archivo || '';
+      const data = transcript.fromMarkdown(record.md);
+      return {
+        key,
+        fileName,
+        md: record.md,
+        data,
+        title: data.title || fileName.replace(/\.md$/, ''),
+      };
+    });
   }
 
   /**

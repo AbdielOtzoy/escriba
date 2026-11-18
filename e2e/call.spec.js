@@ -165,6 +165,12 @@ test('leaving the call saves the transcript to the history and to disk', async (
 
   await expect.poll(() => badge(context)).toBe('');
   expect((await status(context)).state).toBe((await states(context)).IDLE);
+
+  // The popup lists it among the recent ones.
+  const popup = await context.newPage();
+  await popup.goto(new URL('/src/popup/popup.html', context.serviceWorkers()[0].url()).href);
+  await expect(popup.locator('#recent li')).toHaveCount(1);
+  await expect(popup.locator('#recent strong')).toHaveText('Weekly sync');
 });
 
 test('after a pause, only what is said after resuming is captured', async ({ page, context }) => {
