@@ -7,6 +7,8 @@
 
 (() => {
   const TICK_MS = 2000;
+  // Read once at load, while chrome.* still works: after a reload of the extension it throws.
+  const uiLanguage = chrome.i18n.getUILanguage();
 
   /**
    * The meeting being transcribed, or null. `key` is its backup key in storage.
@@ -202,11 +204,10 @@
     meeting.language = language;
     dirty = true;
 
-    const code = chrome.i18n.getUILanguage().split('-')[0];
+    const code = uiLanguage.split('-')[0];
     const mismatch = !transcript.languageMatches(language, code, meetDom.uiLocale());
     if (settings.languageWarning && mismatch) {
-      const mine =
-        new Intl.DisplayNames([chrome.i18n.getUILanguage()], { type: 'language' }).of(code) || code;
+      const mine = new Intl.DisplayNames([uiLanguage], { type: 'language' }).of(code) || code;
       send({
         type: MSG.NOTIFY,
         titleKey: 'notifyLanguageMismatchTitle',
