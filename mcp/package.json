@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "node --test meetings.test.js e2e.js"
+    "test": "node --test meetings.test.js downloads.test.js e2e.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",

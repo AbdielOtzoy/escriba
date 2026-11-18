@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 // MCP server (stdio) over the transcripts Escriba saved. The logic lives in meetings.js.
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import process from 'node:process';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
+import { downloadsFolder } from './downloads.js';
 import { listMeetings, readMeeting, searchTranscripts } from './meetings.js';
 
-// The extension saves into Downloads/transcripciones-meet. Version 2.0 named the folder
+// The extension saves into <Downloads>/transcripciones-meet. Version 2.0 named the folder
 // after the browser's language, so meet-transcripts may exist too: read the ones that do.
-const downloads = path.join(os.homedir(), 'Downloads');
+const downloads = downloadsFolder();
 const [saved = downloads, ...also] = ['transcripciones-meet', 'meet-transcripts']
   .map((name) => path.join(downloads, name))
   .filter((dir) => fs.existsSync(dir));

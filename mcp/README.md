@@ -21,10 +21,10 @@ Dates are `YYYY-MM-DD`, inclusive. `participant` and `query` ignore case and acc
 
 ## Settings
 
-| Environment variable | Default                                                                                                                                | Meaning                                                                                                                               |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `ESCRIBA_DIR`        | `~/Downloads/transcripciones-meet`, plus `~/Downloads/meet-transcripts` if it exists (version 2.0 used it with the browser in English) | Folder with the transcripts. Only `.md` files written by Escriba are read; subfolders are not                                         |
-| `ESCRIBA_SELF_NAME`  | not set                                                                                                                                | Your name. Meet labels what you say as "Tú" or "You"; with this set, the server shows and filters by your name. Files are not changed |
+| Environment variable | Default                                                                                                                                                                                              | Meaning                                                                                                                               |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `ESCRIBA_DIR`        | `transcripciones-meet` in your Downloads folder, plus `meet-transcripts` if it exists (version 2.0 used it with the browser in English). See [Where the transcripts are](#where-the-transcripts-are) | Folder with the transcripts. Only `.md` files written by Escriba are read; subfolders are not                                         |
+| `ESCRIBA_SELF_NAME`  | not set                                                                                                                                                                                              | Your name. Meet labels what you say as "Tú" or "You"; with this set, the server shows and filters by your name. Files are not changed |
 
 ## Install
 
@@ -41,7 +41,7 @@ npm install
 claude mcp add escriba --env ESCRIBA_SELF_NAME="Your Name" -- node /absolute/path/to/escriba/mcp/server.js
 ```
 
-Add `--env ESCRIBA_DIR=/some/folder` if you moved the transcripts somewhere else, and
+Add `--env ESCRIBA_DIR=/some/folder` if the transcripts are somewhere else, and
 `--scope user` to have the server in every project.
 
 ### Claude Desktop
@@ -63,6 +63,20 @@ In `claude_desktop_config.json` (Settings → Developer → Edit Config):
 ```
 
 Restart Claude Desktop afterwards.
+
+### Where the transcripts are
+
+The extension saves into the browser's downloads folder, and the server looks for it the
+way the browser does:
+
+- **Windows:** the Downloads folder, also when it was moved to another drive or to
+  OneDrive (Properties → Location).
+- **Linux:** the folder named in `~/.config/user-dirs.dirs`, which depends on the system's
+  language (`~/Descargas`, `~/Téléchargements`…); `~/Downloads` if there is none.
+- **macOS:** `~/Downloads`.
+
+If you chose another folder in the browser's download settings, set `ESCRIBA_DIR` to its
+`transcripciones-meet` subfolder.
 
 ### macOS: permission to read Downloads
 
