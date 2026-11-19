@@ -1,20 +1,18 @@
 // @ts-check
 // The menu that opens from the toolbar icon: status of the meeting in the current tab,
-// the latest transcripts and the settings.
+// the latest transcripts and shortcuts to the settings and to a bug report.
 
 (() => {
   /** @param {string} id */
   const $ = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
-  /** @param {string} id */
-  const checkbox = (id) => /** @type {HTMLInputElement} */ (document.getElementById(id));
-  const RECENT_COUNT = 4;
+  const RECENT_COUNT = 2;
   const NEW_ISSUE_URL = 'https://github.com/AbdielOtzoy/escriba/issues/new';
 
   /** What the main button does in the current state: one of MSG. */
   /** @type {string} */
   let action = MSG.TOGGLE_PAUSE;
 
-  /** @param {string} [key] the transcript to open on, if any */
+  /** @param {string} [key] the transcript to open on, or 'settings', if any */
   const openHistory = (key = '') =>
     chrome.tabs.create({
       url: chrome.runtime.getURL('src/history/history.html') + (key && '#' + key),
@@ -93,25 +91,11 @@
     );
   }
 
-  async function loadSettings() {
-    const stored = await chrome.storage.local.get(STORAGE.SETTINGS);
-    const saved = /** @type {Partial<Settings> | undefined} */ (stored[STORAGE.SETTINGS]);
-    const settings = { ...DEFAULT_SETTINGS, ...saved };
-    checkbox('autoStart').checked = settings.autoStart;
-    checkbox('languageWarning').checked = settings.languageWarning;
-  }
-
-  const saveSettings = () =>
-    chrome.storage.local.set({
-      [STORAGE.SETTINGS]: {
-        autoStart: checkbox('autoStart').checked,
-        languageWarning: checkbox('languageWarning').checked,
-      },
-    });
-
   i18n.localizeDocument(document);
   $('action').onclick = () => ask(action);
   $('viewAll').onclick = () => openHistory();
+  $('settings').onclick = () => openHistory('settings');
+  $('copyOutline').title = i18n.t('reportHint');
   $('copyOutline').onclick = copyOutline;
   /** @type {HTMLAnchorElement} */ ($('openIssue')).href = NEW_ISSUE_URL;
   // Opens Meet's language setting in the meeting tab; the popup closes to reveal it.
@@ -119,8 +103,6 @@
     await ask(MSG.OPEN_LANGUAGE_SETTINGS);
     close();
   };
-  checkbox('autoStart').onchange = checkbox('languageWarning').onchange = saveSettings;
   ask(MSG.GET_STATUS);
   renderRecent();
-  loadSettings();
 })();

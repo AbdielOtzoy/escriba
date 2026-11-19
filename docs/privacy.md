@@ -37,7 +37,7 @@ loads no remote code. Its developer never receives your transcripts or any infor
 about how you use it.
 
 The text leaves your computer only if you take it out: by copying a transcript, by
-sharing the file, or by pasting the anonymous page outline from the "Stopped working?"
+sharing the file, or by pasting the anonymous page outline from the "Not transcribing?"
 button into a bug report. That outline contains the structure of the Meet page (tags,
 roles, icon names) and no names, text or meeting codes.
 

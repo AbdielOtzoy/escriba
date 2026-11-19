@@ -1,10 +1,13 @@
 // @ts-check
 // The page with every saved transcript: a searchable list on the left and the selected
-// transcript, formatted, on the right.
+// transcript, formatted, on the right. The settings take the right side instead
+// when chosen with the gear, or opened from the popup with #settings.
 
 (() => {
   /** @param {string} id */
   const $ = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
+  /** @param {string} id */
+  const checkbox = (id) => /** @type {HTMLInputElement} */ (document.getElementById(id));
   const locale = chrome.i18n.getUILanguage();
 
   /**
@@ -35,7 +38,8 @@
 
   /** @type {HistoryItem[]} */
   let items = [];
-  let selectedKey = location.hash.slice(1);
+  let showSettings = location.hash === '#settings';
+  let selectedKey = showSettings ? '' : location.hash.slice(1);
 
   async function load() {
     items = await historyStore.list();
@@ -57,8 +61,9 @@
           element('span', 'muted', transcript.summary(item.data, locale)),
           element('span', 'muted', item.data.participants.join(', ')),
         );
-        row.setAttribute('aria-current', String(item.key === selectedKey));
+        row.setAttribute('aria-current', String(!showSettings && item.key === selectedKey));
         row.onclick = () => {
+          showSettings = false;
           selectedKey = item.key;
           history.replaceState(null, '', '#' + item.key);
           render();
@@ -68,6 +73,9 @@
         return li;
       }),
     );
+    $('openSettings').setAttribute('aria-current', String(showSettings));
+    $('settings').hidden = !showSettings;
+    $('detail').hidden = showSettings;
     renderDetail(items.find((item) => item.key === selectedKey));
   }
 
@@ -112,7 +120,30 @@
     );
   }
 
+  async function loadSettings() {
+    const stored = await chrome.storage.local.get(STORAGE.SETTINGS);
+    const saved = /** @type {Partial<Settings> | undefined} */ (stored[STORAGE.SETTINGS]);
+    const settings = { ...DEFAULT_SETTINGS, ...saved };
+    checkbox('autoStart').checked = settings.autoStart;
+    checkbox('languageWarning').checked = settings.languageWarning;
+  }
+
+  const saveSettings = () =>
+    chrome.storage.local.set({
+      [STORAGE.SETTINGS]: {
+        autoStart: checkbox('autoStart').checked,
+        languageWarning: checkbox('languageWarning').checked,
+      },
+    });
+
   i18n.localizeDocument(document);
   $('search').oninput = render;
+  $('openSettings').onclick = () => {
+    showSettings = true;
+    history.replaceState(null, '', '#settings');
+    render();
+  };
+  checkbox('autoStart').onchange = checkbox('languageWarning').onchange = saveSettings;
   load();
+  loadSettings();
 })();

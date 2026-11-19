@@ -60,7 +60,7 @@
     "message": "Recientes"
   },
   "viewAll": {
-    "message": "Ver todas las transcripciones"
+    "message": "Ver todas →"
   },
   "settings": {
     "message": "Ajustes"
@@ -70,6 +70,12 @@
   },
   "settingLanguageWarning": {
     "message": "Avisarme si el idioma de los subtítulos no es el de mi navegador"
+  },
+  "settingAutoStartHint": {
+    "message": "Si lo desactivas, pulsa Transcribir en el menú del ícono en las reuniones que quieras."
+  },
+  "settingLanguageWarningHint": {
+    "message": "Meet transcribe en un solo idioma. Lo capturado en otro idioma no sirve."
   },
   "emptyHistory": {
     "message": "Todavía no hay transcripciones guardadas."
@@ -111,15 +117,15 @@
     "message": "Los subtítulos están en $1 y tu navegador está en $2. Si la reunión es en $2, cámbialo desde el icono de la extensión."
   },
   "reportTitle": {
-    "message": "¿Dejó de funcionar?"
+    "message": "¿No transcribe?"
   },
   "reportHint": {
     "message": "Copia un esquema de la página de Meet para pegarlo en un issue. No lleva nombres, textos ni el código de la reunión."
   },
   "reportCopy": {
-    "message": "Copiar esquema de la página"
+    "message": "Copiar esquema"
   },
   "reportOpenIssue": {
-    "message": "Abrir un issue"
+    "message": "Reportar"
   }
 }

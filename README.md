@@ -28,9 +28,9 @@ Clicking the icon opens a menu with:
 
 - the status of the meeting and a button to **Pause** (**II** in gray) or **Resume**;
 - the caption language, with a **Change** button that opens that setting in Meet;
-- the last four transcripts, each with a **Copy** button;
-- **View all transcripts**, a page with search to read, copy, download again or delete them;
-- the settings.
+- the last two transcripts, each with a **Copy** button;
+- **View all**, a page with search to read, copy, download again or delete them;
+- **⚙**, which opens the settings on that page (also reachable from its own ⚙).
 
 When you leave the call or close the tab, the transcript is saved in two places:
 
@@ -67,8 +67,8 @@ Google changes Meet's HTML from time to time. Everything that depends on it is i
 `src/content/meet-dom.js`, and `test/fixtures` holds samples of that HTML: update the
 sample with what Meet looks like now and `npm test` shows what broke.
 
-To report it, open the icon menu in the Meet tab and press **Copy page outline** under
-"Stopped working?", then paste it into an issue. The outline has the tags, roles and icon
+To report it, open the icon menu in the Meet tab and press **Copy outline** next to
+"Not transcribing?", then paste it into an issue. The outline has the tags, roles and icon
 names of the page, and no names, text or meeting code. Nothing is sent: it only goes to
 your clipboard.
 
