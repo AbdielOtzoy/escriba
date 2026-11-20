@@ -22,9 +22,22 @@ jobs:
       - run: npm run check
       - name: The tag must match the version in manifest.json
         run: test "v$(node -p "require('./manifest.json').version")" = "$GITHUB_REF_NAME"
+      # The notes are the "## [x.y.z]" section of CHANGELOG.md, up to the next heading or
+      # the link definitions at the bottom.
+      - name: The release notes come from CHANGELOG.md
+        run: |
+          awk -v v="${GITHUB_REF_NAME#v}" '
+            /^## \[/ { if (found) exit; found = index($0, "## [" v "]") == 1; next }
+            /^\[[^]]+\]: / { if (found) exit }
+            found
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          grep -q '[^[:space:]]' "$RUNNER_TEMP/notes.md" || {
+            echo "::error::CHANGELOG.md has no section for ${GITHUB_REF_NAME#v}"
+            exit 1
+          }
       - name: Pack only what the browser loads
         run: zip -r "escriba-$GITHUB_REF_NAME.zip" manifest.json _locales icons src LICENSE
       - name: Publish the release
-        run: gh release create "$GITHUB_REF_NAME" "escriba-$GITHUB_REF_NAME.zip" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" "escriba-$GITHUB_REF_NAME.zip" --notes-file "$RUNNER_TEMP/notes.md"
         env:
           GH_TOKEN: ${{ github.token }}
