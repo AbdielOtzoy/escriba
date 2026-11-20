@@ -1,9 +1,9 @@
 {
   "extName": {
-    "message": "Escriba"
+    "message": "Escriba for Google Meet™"
   },
   "extDescription": {
-    "message": "Transcribes your Google Meet meetings to Markdown, with the name of who is speaking. No bot joins the call and nothing leaves your computer."
+    "message": "Transcribes Google Meet calls to Markdown, with the name of each speaker. No bot joins the call and nothing leaves your computer."
   },
   "fallbackTitle": {
     "message": "meeting"

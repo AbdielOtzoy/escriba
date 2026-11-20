@@ -1,0 +1,50 @@
+name: Escriba stopped transcribing
+description: The icon shows "!", captions are not captured, or no transcript was saved.
+title: 'Not transcribing: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Google changes Meet's page from time to time, and Escriba has to follow. The page outline below shows what changed without showing anything about your meeting.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you saw, and when it started (on joining, after a while, after changing something).
+    validations:
+      required: true
+  - type: textarea
+    id: outline
+    attributes:
+      label: Page outline
+      description: |
+        In the Meet tab where it stopped, click the Escriba icon and press **Copy outline** next to "Not transcribing?", then paste it here. It has the page's tags, roles and icon names, and no names, text or meeting code.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 142.0.7444.60
+    validations:
+      required: true
+  - type: input
+    id: escriba-version
+    attributes:
+      label: Escriba version
+      description: Shown at chrome://extensions.
+      placeholder: 2.2.0
+  - type: input
+    id: meet-language
+    attributes:
+      label: Meet interface language
+      description: The language of Meet's buttons and menus.
+      placeholder: English
+  - type: input
+    id: caption-language
+    attributes:
+      label: Caption language
+      description: Shown in the icon menu next to "Captions in".
+      placeholder: Spanish

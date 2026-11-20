@@ -1,0 +1,28 @@
+name: Bug report
+description: Something else does not work as it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If Escriba stopped capturing a call, use the "Escriba stopped transcribing" form instead. Please do not paste transcripts or anything else people said in a meeting.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 142.0.7444.60
+    validations:
+      required: true
+  - type: input
+    id: escriba-version
+    attributes:
+      label: Escriba version
+      description: Shown at chrome://extensions.
+      placeholder: 2.2.0

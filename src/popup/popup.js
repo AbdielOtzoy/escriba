@@ -6,7 +6,8 @@
   /** @param {string} id */
   const $ = (id) => /** @type {HTMLElement} */ (document.getElementById(id));
   const RECENT_COUNT = 2;
-  const NEW_ISSUE_URL = 'https://github.com/AbdielOtzoy/escriba/issues/new';
+  const NEW_ISSUE_URL =
+    'https://github.com/AbdielOtzoy/escriba/issues/new?template=not-transcribing.yml';
 
   /** What the main button does in the current state: one of MSG. */
   /** @type {string} */
