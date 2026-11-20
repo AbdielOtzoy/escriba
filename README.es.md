@@ -1,10 +1,17 @@
 # Escriba
 
+[![CI](https://github.com/AbdielOtzoy/escriba/actions/workflows/ci.yml/badge.svg)](https://github.com/AbdielOtzoy/escriba/actions/workflows/ci.yml)
+
 Extensión de navegador que transcribe tus reuniones de Google Meet a Markdown, con el
 nombre de quien habla. No entra un bot a la reunión y nada sale de tu equipo: lee los
 subtítulos que Meet ya genera.
 
-[Read in English](README.md)
+<p>
+  <img src="docs/images/popup.png" width="320" alt="El menú del icono durante una llamada">
+  <img src="docs/images/transcripts.png" width="560" alt="La página de transcripciones">
+</p>
+
+[Sitio web](https://abdielotzoy.github.io/escriba/) · [Política de privacidad](https://abdielotzoy.github.io/escriba/privacy) · [Cambios](CHANGELOG.md) · [Read in English](README.md)
 
 ## Instalar (Brave, Chrome o Edge)
 
@@ -28,7 +35,7 @@ Un clic en el icono abre un menú con:
 
 - el estado de la reunión y un botón para **Pausar** (**II** en gris) o **Reanudar**;
 - el idioma de los subtítulos, con un botón **Cambiar** que abre ese ajuste en Meet;
-- las últimas cuatro transcripciones, cada una con un botón **Copiar**;
+- las dos últimas transcripciones, cada una con un botón **Copiar**;
 - **Ver todas las transcripciones**, una página con buscador para leerlas, copiarlas,
   volver a descargarlas o borrarlas;
 - los ajustes.

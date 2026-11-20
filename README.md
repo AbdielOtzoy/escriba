@@ -1,10 +1,17 @@
 # Escriba
 
+[![CI](https://github.com/AbdielOtzoy/escriba/actions/workflows/ci.yml/badge.svg)](https://github.com/AbdielOtzoy/escriba/actions/workflows/ci.yml)
+
 Browser extension that transcribes your Google Meet meetings to Markdown, with the name
 of who is speaking. No bot joins the call and nothing leaves your computer: it reads the
 captions Meet already generates.
 
-[Leer en español](README.es.md)
+<p>
+  <img src="docs/images/popup.png" width="320" alt="The icon menu during a call">
+  <img src="docs/images/transcripts.png" width="560" alt="The transcripts page">
+</p>
+
+[Website](https://abdielotzoy.github.io/escriba/) · [Privacy policy](https://abdielotzoy.github.io/escriba/privacy) · [Changelog](CHANGELOG.md) · [Leer en español](README.es.md)
 
 ## Install (Brave, Chrome or Edge)
 

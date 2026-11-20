@@ -1,0 +1,4 @@
+# GitHub Pages builds this folder (Settings > Pages > Deploy from a branch: main, /docs).
+# Markdown pages use _layouts/default.html; index.html is served as is.
+exclude:
+  - store # Chrome Web Store drafts, not for the site

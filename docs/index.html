@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The page itself proves the claim: nothing loads from anywhere but this site. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <title>Escriba: Google Meet transcripts that stay on your computer</title>
+    <meta
+      name="description"
+      content="Browser extension that transcribes Google Meet calls to Markdown from Meet's own captions. No bot, no audio, nothing leaves your computer."
+    />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --panel: #f6f7f9;
+        --text: #1f2328;
+        --muted: #59626c;
+        --border: #d8dce1;
+        --accent: #1a6fdc;
+        --on-accent: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1f2023;
+          --panel: #292a2e;
+          --text: #e8eaed;
+          --muted: #a8aeb4;
+          --border: #3c4043;
+          --accent: #8ab4f8;
+          --on-accent: #1f2023;
+        }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+      main, footer { max-width: 52rem; margin: 0 auto; padding: 0 20px; }
+      a { color: var(--accent); text-underline-offset: 2px; }
+      a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+      h1, h2 { line-height: 1.2; }
+      h2 { margin: 0 0 16px; font-size: 1.35rem; }
+      section { padding: 36px 0; border-top: 1px solid var(--border); }
+      .hero { padding: 56px 0 40px; border: 0; }
+      .brand { display: flex; gap: 14px; align-items: center; margin: 0 0 20px; font-size: 2.4rem; }
+      .brand img { width: 56px; height: 56px; }
+      .pitch { margin: 0 0 28px; font-size: 1.3rem; max-width: 36rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0; }
+      .button { display: inline-block; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 10px; font-weight: 600; text-decoration: none; }
+      .button.primary { background: var(--accent); color: var(--on-accent); }
+      .muted { color: var(--muted); }
+      ol.steps { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+      ol.steps li { position: relative; padding: 16px 16px 16px 60px; background: var(--panel); border-radius: 12px; counter-increment: step; }
+      ol.steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 700; line-height: 30px; text-align: center; }
+      ol.steps strong { display: block; }
+      .shots { display: grid; gap: 28px; }
+      figure { margin: 0; }
+      figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 12px; }
+      figcaption { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+      ul { padding-left: 1.2em; }
+      ul li + li { margin-top: 6px; }
+      code { font-size: 0.9em; padding: 1px 5px; background: var(--panel); border-radius: 5px; overflow-wrap: anywhere; }
+      footer { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-top: 24px; padding-bottom: 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+      @media (min-width: 720px) {
+        ol.steps { grid-template-columns: repeat(3, 1fr); }
+        ol.steps li { padding: 60px 16px 16px; }
+      }
+      @media (max-width: 400px) {
+        body { font-size: 16px; }
+        main, footer { padding: 0 16px; }
+        .brand { font-size: 2rem; }
+        .pitch { font-size: 1.15rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <h1 class="brand"><img src="icon.svg" alt="" width="56" height="56" />Escriba</h1>
+        <p class="pitch">
+          Transcribes your Google Meet calls to Markdown, with the name of who is speaking. No
+          bot joins the call and nothing leaves your computer.
+        </p>
+        <p class="actions">
+          <!-- TODO: store URL -->
+          <a class="button primary" href="#install">Install</a>
+          <a class="button" href="https://github.com/AbdielOtzoy/escriba">Source on GitHub</a>
+        </p>
+      </section>
+
+      <section aria-labelledby="how">
+        <h2 id="how">How it works</h2>
+        <ol class="steps">
+          <li>
+            <strong>Join a meeting.</strong>
+            Escriba turns on Meet's captions and hides them, so the video keeps its full size.
+            The icon shows REC.
+          </li>
+          <li>
+            <strong>Talk as usual.</strong>
+            It reads each caption as Meet writes it, with the speaker's name. No audio is
+            recorded.
+          </li>
+          <li>
+            <strong>Leave the call.</strong>
+            The transcript is saved as a Markdown file in your Downloads folder and on a
+            transcripts page you can search.
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="look">
+        <h2 id="look">What it looks like</h2>
+        <div class="shots">
+          <figure>
+            <img
+              src="images/transcripts.png"
+              width="1120"
+              height="680"
+              alt="The transcripts page: a searchable list of saved meetings on the left, and the open transcript on the right with Copy, Download and Delete buttons and each turn labeled with the speaker's name and time."
+              loading="lazy"
+            />
+            <figcaption>The transcripts page: search, read, copy or download any meeting.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="images/popup.png"
+              width="320"
+              height="280"
+              alt="The icon menu during a call: Transcribing, 37 turns, with a Pause button; captions in English with a Change button; the two latest transcripts with Copy buttons; and a Not transcribing? row with Copy outline and Report."
+              loading="lazy"
+            />
+            <figcaption>The icon menu during a call.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="privacy">
+        <h2 id="privacy">Privacy</h2>
+        <ul>
+          <li>No network requests, analytics, accounts or remote code. This page loads nothing from other sites either.</li>
+          <li>No audio or video is recorded, and the meeting chat is not read.</li>
+          <li>Transcripts stay in your Downloads folder and in the browser's local storage.</li>
+          <li>Other people in the call should know you are transcribing it.</li>
+        </ul>
+        <p><a href="privacy">Read the privacy policy</a></p>
+      </section>
+
+      <section aria-labelledby="limits">
+        <h2 id="limits">Good to know</h2>
+        <ul>
+          <li>Meet transcribes one language at a time, the one chosen in its caption settings. Escriba shows which one is active.</li>
+          <li>Only what is said after you join is captured.</li>
+          <li>It depends on Meet's page, which Google changes. If it stops transcribing, the icon turns amber and you get a notification.</li>
+          <li>Works in Chrome, Edge and Brave. The interface is in English and Spanish.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="install">
+        <h2 id="install">Install</h2>
+        <!-- TODO: store URL -->
+        <p class="muted">Chrome Web Store: coming soon.</p>
+        <p>
+          Meanwhile, install it from source: download the code, open
+          <code>chrome://extensions</code>, turn on Developer mode and load the folder.
+          <a href="https://github.com/AbdielOtzoy/escriba#readme">Step-by-step instructions</a>.
+          There is nothing to build.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Abdiel Otzoy</span>
+      <a href="https://github.com/AbdielOtzoy/escriba">GitHub</a>
+      <a href="https://github.com/AbdielOtzoy/escriba/blob/main/LICENSE">MIT License</a>
+      <a href="privacy">Privacy policy</a>
+      <a href="https://github.com/AbdielOtzoy/escriba/blob/main/CHANGELOG.md">Changelog</a>
+    </footer>
+  </body>
+</html>

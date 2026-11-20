@@ -42,7 +42,7 @@ module.exports = [
   },
   {
     // Node files whose callbacks run in the page or in the extension's service worker.
-    files: ['e2e/**/*.js'],
+    files: ['e2e/**/*.js', 'tools/**/*.js'],
     languageOptions: {
       sourceType: 'commonjs',
       globals: { ...globals.node, ...globals.browser, chrome: 'readonly' },

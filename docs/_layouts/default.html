@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Replaces the default theme's layout, which loads a script from a CDN. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <title>{{ page.title | default: 'Escriba' }}</title>
+    {% if page.description %}<meta name="description" content="{{ page.description | escape }}" />{% endif %}
+    <link rel="icon" href="{{ '/icon.svg' | relative_url }}" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --panel: #f6f7f9;
+        --text: #1f2328;
+        --muted: #59626c;
+        --border: #d8dce1;
+        --accent: #1a6fdc;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1f2023;
+          --panel: #292a2e;
+          --text: #e8eaed;
+          --muted: #a8aeb4;
+          --border: #3c4043;
+          --accent: #8ab4f8;
+        }
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+      header, main, footer { max-width: 46rem; margin: 0 auto; padding: 0 20px; }
+      header { padding-top: 24px; }
+      header a { display: inline-flex; gap: 10px; align-items: center; color: var(--text); font-weight: 700; font-size: 1.2rem; text-decoration: none; }
+      a { color: var(--accent); text-underline-offset: 2px; overflow-wrap: anywhere; }
+      a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+      h1, h2, h3 { line-height: 1.25; }
+      h2 { margin-top: 2em; }
+      img { max-width: 100%; height: auto; }
+      code { font-size: 0.9em; padding: 1px 5px; background: var(--panel); border-radius: 5px; }
+      pre { padding: 14px; background: var(--panel); border-radius: 8px; overflow-x: auto; }
+      pre code { padding: 0; }
+      blockquote { margin: 0; padding-left: 16px; border-left: 3px solid var(--border); color: var(--muted); }
+      table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+      th, td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+      th { background: var(--panel); }
+      footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 48px; padding-top: 24px; padding-bottom: 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+      @media (max-width: 400px) {
+        body { font-size: 16px; }
+        header, main, footer { padding-left: 16px; padding-right: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="{{ '/' | relative_url }}"
+        ><img src="{{ '/icon.svg' | relative_url }}" alt="" width="32" height="32" />Escriba</a
+      >
+    </header>
+    <main>
+      {% unless content contains '<h1' %}<h1>{{ page.title }}</h1>{% endunless %}
+      {{ content }}
+    </main>
+    <footer>
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="https://github.com/AbdielOtzoy/escriba">GitHub</a>
+      <a href="{{ '/privacy' | relative_url }}">Privacy policy</a>
+    </footer>
+  </body>
+</html>

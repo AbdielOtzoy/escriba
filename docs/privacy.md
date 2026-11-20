@@ -1,6 +1,6 @@
 # Escriba privacy policy
 
-_Last updated: November 17, 2026_
+_Last updated: November 19, 2026_
 
 Escriba is a browser extension that writes a text transcript of your Google Meet calls
 from the captions Meet shows. This page explains what it does with your data.
@@ -11,9 +11,9 @@ its developer.**
 ## What Escriba reads
 
 While you are in a call at `meet.google.com`, Escriba reads the captions Meet displays:
-the name of each speaker and what they said. It also reads the meeting title, the time
-and the caption language. It does not record audio or video, and it does not read the
-meeting chat.
+the name of each speaker and what they said. It also reads the meeting title, the meeting
+link, the time and the caption language. It does not record audio or video, and it does
+not read the meeting chat.
 
 ## Where it is stored
 
@@ -40,6 +40,10 @@ The text leaves your computer only if you take it out: by copying a transcript, 
 sharing the file, or by pasting the anonymous page outline from the "Not transcribing?"
 button into a bug report. That outline contains the structure of the Meet page (tags,
 roles, icon names) and no names, text or meeting codes.
+
+The use of information received through Escriba adheres to the
+[Chrome Web Store User Data Policy](https://developer.chrome.com/docs/webstore/program-policies),
+including the Limited Use requirements.
 
 ## Permissions
 
