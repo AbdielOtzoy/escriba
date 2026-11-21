@@ -7,7 +7,7 @@ What changed in each version of Escriba, for the people who use it. The format f
 ### Added
 
 - The MCP server can be installed from npm: AI apps start it with `npx -y escriba-mcp`, with no need to download the code.
-- A 30-second video on the website, and an animation at the top of the README.
+- A 33-second video on the website, and an animation at the top of the README.
 
 ## [2.2.0] - 2026-11-19
 

@@ -240,7 +240,7 @@ It must be live before submitting, and must agree with the boxes above (see the 
 
 ### Promo video
 
-The store takes only a YouTube link. Upload `docs/video/escriba.mp4` (30 s, no sound; the
+The store takes only a YouTube link. Upload `docs/video/escriba.mp4` (33 s, no sound; the
 same video as on the site) as **Unlisted** or Public, with `docs/video/escriba.jpg` as the
 thumbnail. A Spanish video could go in the Spanish listing's Localized promo video field;
 there is none yet.
@@ -254,7 +254,7 @@ Escriba for Google Meet™: transcribe your calls, then ask your AI about them
 YouTube description:
 
 ```text
-Escriba is a browser extension that transcribes Google Meet calls from the captions Meet already makes. No bot joins the call and no audio is recorded. Each meeting is saved as a Markdown file on your computer.
+Escriba is a browser extension that transcribes Google Meet calls from the captions Meet already makes. No bot joins the call and no audio is recorded. Each meeting is saved as a Markdown file on your computer, and a transcripts page in the browser lets you search them all.
 
 An optional MCP server, installed separately, lets AI apps such as Claude read those transcripts, so you can ask what was agreed.
 
