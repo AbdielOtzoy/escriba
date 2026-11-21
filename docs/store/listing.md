@@ -240,6 +240,8 @@ It must be live before submitting, and must agree with the boxes above (see the 
 
 ### Promo video
 
+Uploaded as Unlisted: <https://youtu.be/TDW777qVZMc>. Paste that link in the Promo video field.
+
 The store takes only a YouTube link. Upload `docs/video/escriba.mp4` (33 s, no sound; the
 same video as on the site) as **Unlisted** or Public, with `docs/video/escriba.jpg` as the
 thumbnail. A Spanish video could go in the Spanish listing's Localized promo video field;
