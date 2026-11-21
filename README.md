@@ -118,6 +118,11 @@ npm run check   # lint, format check, type check and tests
 Source files are classic scripts, each declaring one global, loaded in the order listed in
 `manifest.json` and in the HTML pages. Types are checked from JSDoc comments.
 
+## Contributing
+
+Bug reports, fixes and translations are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
+To report a security problem privately, see [SECURITY.md](SECURITY.md).
+
 ## License
 
 [MIT](LICENSE)

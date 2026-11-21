@@ -1,0 +1,22 @@
+name: Feature idea
+description: Something Escriba could do. Describe it here before writing code.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you want to do
+      description: The situation and what is hard or impossible today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How Escriba could help
+      description: Your idea, and anything else you considered.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I understand Escriba makes no network requests and keeps transcripts on the computer, and my idea keeps it that way (or I explain why not).

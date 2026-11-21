@@ -108,6 +108,11 @@ npm run check   # linter, formato, tipos y pruebas
 
 La estructura del código está descrita en el [README en inglés](README.md#development).
 
+## Contribuir
+
+Se agradecen reportes de errores, arreglos y traducciones: mira [CONTRIBUTING.md](CONTRIBUTING.md)
+(en inglés). Para reportar un problema de seguridad en privado, mira [SECURITY.md](SECURITY.md).
+
 ## Licencia
 
 [MIT](LICENSE)
