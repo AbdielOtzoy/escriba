@@ -66,6 +66,10 @@ Good to know
 - If transcription stops for more than 20 seconds (for example, captions were turned off or Meet changed), the icon shows ! and a system notification appears.
 - You are responsible for telling the other participants that the meeting is being transcribed, and for following the laws on recording and transcription where you are.
 
+Ask your AI about your meetings (optional)
+A separate, open-source MCP server lets AI apps such as Claude or Cursor list, search and read the transcripts in your Downloads folder, so you can ask what was agreed in a meeting. It is not part of this extension and is installed on its own: https://github.com/AbdielOtzoy/escriba/tree/main/mcp
+It only reads those files on your computer; the AI app you connect it to receives what it reads.
+
 Privacy
 Everything stays on your computer. Escriba makes no network requests, has no analytics, ads or accounts, and loads no remote code. Transcripts kept in the browser are deleted if you remove the extension; the files in Downloads stay.
 
@@ -104,6 +108,10 @@ A tener en cuenta
 - El chat de la reunión no se guarda.
 - Si deja de poder transcribir durante más de 20 segundos (por ejemplo, se apagaron los subtítulos o Meet cambió), el icono muestra ! y aparece una notificación del sistema.
 - Eres responsable de avisar a los demás participantes de que la reunión se está transcribiendo y de cumplir las leyes sobre grabación y transcripción de tu lugar.
+
+Pregúntale a tu IA por tus reuniones (opcional)
+Un servidor MCP aparte, de código abierto, deja que apps de IA como Claude o Cursor listen, busquen y lean las transcripciones de tu carpeta de Descargas, para que preguntes qué se acordó en una reunión. No forma parte de esta extensión y se instala por separado: https://github.com/AbdielOtzoy/escriba/tree/main/mcp
+Solo lee esos archivos en tu equipo; la app de IA a la que lo conectes recibe lo que lee.
 
 Privacidad
 Todo se queda en tu equipo. Escriba no hace peticiones de red, no tiene analíticas, anuncios ni cuentas, y no carga código remoto. Las transcripciones guardadas en el navegador se borran si quitas la extensión; los archivos de Descargas se quedan.
@@ -218,17 +226,43 @@ It must be live before submitting, and must agree with the boxes above (see the 
 
 ## Images
 
-| File                           | Size     | Required           | Where it goes                                                             |
-| ------------------------------ | -------- | ------------------ | ------------------------------------------------------------------------- |
-| `icons/icon128.png`            | 128×128  | Yes                | Inside the zip; the store uses it as the store icon                       |
-| `docs/store/screenshot-1.png`  | 1280×800 | Yes (at least one) | Store listing → Screenshots                                               |
-| `docs/store/screenshot-2.png`  | 1280×800 | No                 | Screenshots (up to 5; the docs recommend using all five)                  |
-| `docs/store/screenshot-3.png`  | 1280×800 | No                 | Screenshots                                                               |
-| `docs/store/screenshot-4.png`  | 1280×800 | No                 | Screenshots                                                               |
-| `docs/store/screenshot-5.png`  | 1280×800 | No                 | Screenshots                                                               |
-| `docs/store/promo-small.png`   | 440×280  | No                 | Small promo tile; without it the item is listed after those that have one |
-| `docs/store/promo-marquee.png` | 1400×560 | No                 | Marquee promo tile; only needed to be featured in the carousel            |
-| YouTube video                  | —        | No                 | Optional link                                                             |
+| File                           | Size      | Required           | Where it goes                                                             |
+| ------------------------------ | --------- | ------------------ | ------------------------------------------------------------------------- |
+| `icons/icon128.png`            | 128×128   | Yes                | Inside the zip; the store uses it as the store icon                       |
+| `docs/store/screenshot-1.png`  | 1280×800  | Yes (at least one) | Store listing → Screenshots                                               |
+| `docs/store/screenshot-2.png`  | 1280×800  | No                 | Screenshots (up to 5; the docs recommend using all five)                  |
+| `docs/store/screenshot-3.png`  | 1280×800  | No                 | Screenshots                                                               |
+| `docs/store/screenshot-4.png`  | 1280×800  | No                 | Screenshots                                                               |
+| `docs/store/screenshot-5.png`  | 1280×800  | No                 | Screenshots                                                               |
+| `docs/store/promo-small.png`   | 440×280   | No                 | Small promo tile; without it the item is listed after those that have one |
+| `docs/store/promo-marquee.png` | 1400×560  | No                 | Marquee promo tile; only needed to be featured in the carousel            |
+| `docs/video/escriba.mp4`       | 1920×1080 | No                 | Upload to YouTube, then paste the link in Promo video (see below)         |
+
+### Promo video
+
+The store takes only a YouTube link. Upload `docs/video/escriba.mp4` (30 s, no sound; the
+same video as on the site) as **Unlisted** or Public, with `docs/video/escriba.jpg` as the
+thumbnail. A Spanish video could go in the Spanish listing's Localized promo video field;
+there is none yet.
+
+YouTube title (100 characters at most):
+
+```text
+Escriba for Google Meet™: transcribe your calls, then ask your AI about them
+```
+
+YouTube description:
+
+```text
+Escriba is a browser extension that transcribes Google Meet calls from the captions Meet already makes. No bot joins the call and no audio is recorded. Each meeting is saved as a Markdown file on your computer.
+
+An optional MCP server, installed separately, lets AI apps such as Claude read those transcripts, so you can ask what was agreed.
+
+Website: https://abdielotzoy.github.io/escriba/
+Source code: https://github.com/AbdielOtzoy/escriba
+
+Escriba is not made or endorsed by Google. Google Meet is a trademark of Google LLC.
+```
 
 Rules for the screenshots: square corners and no padding (full bleed), not blurry, showing
 the current version. Screenshots of Meet are allowed if unmodified and illustrative, and
@@ -290,3 +324,5 @@ icon has 96×96 of artwork and 16 px of transparent padding per side.
 - Account setup (contact email): <https://developer.chrome.com/docs/webstore/set-up-account>
 - 2-Step Verification: <https://developer.chrome.com/docs/webstore/program-policies/two-step-verification>
 - Trader / non-trader: <https://developer.chrome.com/docs/webstore/program-policies/trader-disclosure>
+- Store listing fields, promo video and localized promo video: <https://developer.chrome.com/docs/webstore/cws-dashboard-listing>
+- Listing requirements (accurate, not misleading metadata): <https://developer.chrome.com/docs/webstore/program-policies/listing-requirements>

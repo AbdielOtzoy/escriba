@@ -6,12 +6,9 @@ Browser extension that transcribes your Google Meet meetings to Markdown, with t
 of who is speaking. No bot joins the call and nothing leaves your computer: it reads the
 captions Meet already generates.
 
-<p>
-  <img src="docs/images/popup.png" width="320" alt="The icon menu during a call">
-  <img src="docs/images/transcripts.png" width="560" alt="The transcripts page">
-</p>
+<img src="docs/images/escriba.gif" width="860" alt="Leaving a Meet call: the transcript is downloaded as a Markdown file, then found by searching the transcripts page">
 
-[Website](https://abdielotzoy.github.io/escriba/) · [Privacy policy](https://abdielotzoy.github.io/escriba/privacy) · [Changelog](CHANGELOG.md) · [Leer en español](README.es.md)
+[30-second video](https://abdielotzoy.github.io/escriba/#video) · [Website](https://abdielotzoy.github.io/escriba/) · [Privacy policy](https://abdielotzoy.github.io/escriba/privacy) · [Changelog](CHANGELOG.md) · [Leer en español](README.es.md)
 
 ## Install (Brave, Chrome or Edge)
 
@@ -30,6 +27,11 @@ Join a meeting. The extension turns the captions on, hides them from the screen 
 gets that space back; the transcript is unaffected) and the extension icon shows **REC**
 in red. Pin the icon to the toolbar to see it. Hovering over it shows how many turns have
 been captured.
+
+<p>
+  <img src="docs/images/popup.png" width="320" alt="The icon menu during a call">
+  <img src="docs/images/transcripts.png" width="560" alt="The transcripts page">
+</p>
 
 Clicking the icon opens a menu with:
 
@@ -57,6 +59,22 @@ it, the browser needs notification permission in the operating system settings.
   extension does nothing on joining; press **Transcribe** in the menu for the meetings
   you want.
 - **Warn me if the caption language is not my browser's language** (off by default).
+
+## Ask your AI about your meetings
+
+An optional MCP server, installed apart from the extension, lets Claude, Cursor or any other
+app that supports [MCP](https://modelcontextprotocol.io) list, search and read your
+transcripts. Then you can ask, for example, "What did we agree in today's product sync?".
+With Claude Code:
+
+```
+claude mcp add escriba -- npx -y escriba-mcp
+```
+
+The server runs on your computer, only reads the transcript files and makes no network
+requests. The AI app you connect it to does receive what it reads: a cloud assistant sends
+that text to its provider. Setup for Claude Desktop and other apps:
+[mcp/README.md](mcp/README.md).
 
 ## Good to know
 
@@ -95,6 +113,7 @@ npm run check   # lint, format check, type check and tests
 | `src/shared/`                | Constants, texts, transcript format and history, used by all of the above                                                                     |
 | `_locales/`                  | Texts in English and Spanish                                                                                                                  |
 | `test/`                      | Tests, with samples of Meet's HTML in `test/fixtures`                                                                                         |
+| `mcp/`                       | The optional MCP server, a separate npm package (`escriba-mcp`)                                                                               |
 
 Source files are classic scripts, each declaring one global, loaded in the order listed in
 `manifest.json` and in the HTML pages. Types are checked from JSDoc comments.

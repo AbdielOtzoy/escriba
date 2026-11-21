@@ -6,7 +6,7 @@
     <!-- The page itself proves the claim: nothing loads from anywhere but this site. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'"
+      content="default-src 'none'; img-src 'self'; media-src 'self'; style-src 'unsafe-inline'"
     />
     <meta name="color-scheme" content="light dark" />
     <title>Escriba: Google Meet transcripts that stay on your computer</title>
@@ -60,6 +60,10 @@
       figure { margin: 0; }
       figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 12px; }
       figcaption { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+      .video { margin-top: 36px; }
+      .video video { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 12px; }
+      pre { margin: 0 0 16px; padding: 12px 16px; background: var(--panel); border-radius: 10px; overflow-x: auto; }
+      pre code { padding: 0; background: none; }
       ul { padding-left: 1.2em; }
       ul li + li { margin-top: 6px; }
       code { font-size: 0.9em; padding: 1px 5px; background: var(--panel); border-radius: 5px; overflow-wrap: anywhere; }
@@ -89,6 +93,15 @@
           <a class="button primary" href="#install">Install</a>
           <a class="button" href="https://github.com/AbdielOtzoy/escriba">Source on GitHub</a>
         </p>
+        <figure id="video" class="video">
+          <video controls playsinline preload="metadata" poster="video/escriba.jpg" width="1920" height="1080">
+            <source src="video/escriba.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            30 seconds, no sound: Escriba transcribes a call and saves it as Markdown, then an AI
+            assistant reads it through MCP and answers what was agreed.
+          </figcaption>
+        </figure>
       </section>
 
       <section aria-labelledby="how">
@@ -110,6 +123,23 @@
             transcripts page you can search.
           </li>
         </ol>
+      </section>
+
+      <section aria-labelledby="ai">
+        <h2 id="ai">Ask your AI about your meetings</h2>
+        <p>
+          An optional MCP server, installed apart from the extension, lets Claude, Cursor or any
+          other app that supports <a href="https://modelcontextprotocol.io">MCP</a> list, search
+          and read your transcripts. Ask "What did we agree in today's product sync?" and get the
+          decisions, with who said what and when. With Claude Code:
+        </p>
+        <pre><code>claude mcp add escriba -- npx -y escriba-mcp</code></pre>
+        <p class="muted">
+          The server runs on your computer, only reads the transcript files and makes no network
+          requests. The AI app you connect it to does receive what it reads: a cloud assistant
+          sends that text to its provider.
+          <a href="https://github.com/AbdielOtzoy/escriba/tree/main/mcp#readme">Setup for Claude Desktop and other apps</a>.
+        </p>
       </section>
 
       <section aria-labelledby="look">
@@ -144,6 +174,7 @@
           <li>No network requests, analytics, accounts or remote code. This page loads nothing from other sites either.</li>
           <li>No audio or video is recorded, and the meeting chat is not read.</li>
           <li>Transcripts stay in your Downloads folder and in the browser's local storage.</li>
+          <li>The optional MCP server only reads those files. If you connect it to an AI app, that app receives what it reads.</li>
           <li>Other people in the call should know you are transcribing it.</li>
         </ul>
         <p><a href="privacy">Read the privacy policy</a></p>

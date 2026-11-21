@@ -6,12 +6,9 @@ Extensión de navegador que transcribe tus reuniones de Google Meet a Markdown, 
 nombre de quien habla. No entra un bot a la reunión y nada sale de tu equipo: lee los
 subtítulos que Meet ya genera.
 
-<p>
-  <img src="docs/images/popup.png" width="320" alt="El menú del icono durante una llamada">
-  <img src="docs/images/transcripts.png" width="560" alt="La página de transcripciones">
-</p>
+<img src="docs/images/escriba.gif" width="860" alt="Al salir de una llamada de Meet, la transcripción se descarga como archivo Markdown y luego se encuentra buscando en la página de transcripciones">
 
-[Sitio web](https://abdielotzoy.github.io/escriba/) · [Política de privacidad](https://abdielotzoy.github.io/escriba/privacy) · [Cambios](CHANGELOG.md) · [Read in English](README.md)
+[Video de 30 segundos](https://abdielotzoy.github.io/escriba/#video) · [Sitio web](https://abdielotzoy.github.io/escriba/) · [Política de privacidad](https://abdielotzoy.github.io/escriba/privacy) · [Cambios](CHANGELOG.md) · [Read in English](README.md)
 
 ## Instalar (Brave, Chrome o Edge)
 
@@ -30,6 +27,11 @@ Entra a una reunión. La extensión activa los subtítulos, los oculta de la pan
 video recupera ese espacio; la transcripción sigue igual) y el icono de la extensión
 muestra **REC** en rojo. Fija el icono en la barra para verlo. Al pasar el cursor por
 encima se ve cuántas intervenciones lleva.
+
+<p>
+  <img src="docs/images/popup.png" width="320" alt="El menú del icono durante una llamada">
+  <img src="docs/images/transcripts.png" width="560" alt="La página de transcripciones">
+</p>
 
 Un clic en el icono abre un menú con:
 
@@ -59,6 +61,22 @@ necesita permiso de notificaciones en los ajustes del sistema operativo.
   la extensión no hace nada al entrar; pulsa **Transcribir** en el menú en las reuniones
   que quieras.
 - **Avisarme si el idioma de los subtítulos no es el de mi navegador** (apagado por defecto).
+
+## Pregúntale a tu IA por tus reuniones
+
+Un servidor MCP opcional, que se instala aparte de la extensión, deja que Claude, Cursor o
+cualquier otra app compatible con [MCP](https://modelcontextprotocol.io) liste, busque y lea
+tus transcripciones. Así puedes preguntar, por ejemplo, «¿Qué acordamos hoy en la reunión de
+producto?». Con Claude Code:
+
+```
+claude mcp add escriba -- npx -y escriba-mcp
+```
+
+El servidor corre en tu equipo, solo lee los archivos de las transcripciones y no hace
+peticiones de red. La app de IA a la que lo conectes sí recibe lo que lee: un asistente en
+la nube le envía ese texto a su proveedor. Cómo configurarlo en Claude Desktop y otras apps:
+[mcp/README.md](mcp/README.md) (en inglés).
 
 ## A tener en cuenta
 
