@@ -2,6 +2,12 @@
 
 What changed in each version of Escriba, for the people who use it. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Changes that only affect development (tests, CI, tooling) are left out.
 
+## [Unreleased]
+
+### Added
+
+- The MCP server can be installed from npm: AI apps start it with `npx -y escriba-mcp`, with no need to download the code.
+
 ## [2.2.0] - 2026-11-19
 
 ### Added
@@ -65,6 +71,7 @@ First version in this repository, in Spanish.
 - System notification when transcription stops for more than 20 seconds.
 - Settings to transcribe automatically when joining and to warn when the caption language is not the browser's language.
 
+[Unreleased]: https://github.com/AbdielOtzoy/escriba/compare/v2.2.0...HEAD
 [2.2.0]: https://github.com/AbdielOtzoy/escriba/compare/7973944...v2.2.0
 [2.1.0]: https://github.com/AbdielOtzoy/escriba/compare/1cbe8ff...7973944
 [2.0.1]: https://github.com/AbdielOtzoy/escriba/compare/fa29189...1cbe8ff

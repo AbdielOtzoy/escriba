@@ -1,16 +1,41 @@
 {
   "name": "escriba-mcp",
   "version": "0.1.0",
-  "private": true,
   "description": "Local MCP server that reads the Google Meet transcripts saved by Escriba",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "google-meet",
+    "transcripts",
+    "meeting-notes",
+    "claude"
+  ],
+  "homepage": "https://abdielotzoy.github.io/escriba/",
+  "bugs": "https://github.com/AbdielOtzoy/escriba/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdielOtzoy/escriba.git",
+    "directory": "mcp"
+  },
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "escriba-mcp": "server.js"
+  },
+  "files": [
+    "server.js",
+    "meetings.js",
+    "downloads.js",
+    "transcript.js"
+  ],
   "engines": {
     "node": ">=20.11"
   },
   "scripts": {
     "start": "node server.js",
-    "test": "node --test meetings.test.js downloads.test.js e2e.js"
+    "test": "node --test meetings.test.js downloads.test.js e2e.js",
+    "prepack": "node -e \"const fs = require('fs'); fs.copyFileSync('../src/shared/transcript.js', 'transcript.js'); fs.copyFileSync('../LICENSE', 'LICENSE')\"",
+    "postpack": "node -e \"const fs = require('fs'); fs.rmSync('transcript.js'); fs.rmSync('LICENSE')\""
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",

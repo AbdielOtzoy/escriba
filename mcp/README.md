@@ -5,8 +5,11 @@ or any other MCP client read the Google Meet transcripts that Escriba saved as M
 files. It runs on your computer over stdio, only reads files, never changes them and makes
 no network requests.
 
+It works with [Escriba](https://abdielotzoy.github.io/escriba/), the browser extension that
+transcribes Google Meet calls from the captions, with no bot in the call.
+
 It is a separate package so that its dependencies stay out of the extension. It reuses the
-extension's parser (`../src/shared/transcript.js`), so it must stay inside this repository.
+extension's parser (`../src/shared/transcript.js`); the npm package carries a copy of it.
 
 ## Tools
 
@@ -28,17 +31,13 @@ Dates are `YYYY-MM-DD`, inclusive. `participant` and `query` ignore case and acc
 
 ## Install
 
-Node.js 20.11 or later.
-
-```
-cd mcp
-npm install
-```
+You need Node.js 20.11 or later. There is nothing else to install: your AI app starts the
+server with `npx`, which downloads it the first time.
 
 ### Claude Code
 
 ```
-claude mcp add escriba --env ESCRIBA_SELF_NAME="Your Name" -- node /absolute/path/to/escriba/mcp/server.js
+claude mcp add escriba --env ESCRIBA_SELF_NAME="Your Name" -- npx -y escriba-mcp
 ```
 
 Add `--env ESCRIBA_DIR=/some/folder` if the transcripts are somewhere else, and
@@ -52,8 +51,8 @@ In `claude_desktop_config.json` (Settings → Developer → Edit Config):
 {
   "mcpServers": {
     "escriba": {
-      "command": "node",
-      "args": ["/absolute/path/to/escriba/mcp/server.js"],
+      "command": "npx",
+      "args": ["-y", "escriba-mcp"],
       "env": {
         "ESCRIBA_SELF_NAME": "Your Name"
       }
@@ -62,7 +61,18 @@ In `claude_desktop_config.json` (Settings → Developer → Edit Config):
 }
 ```
 
-Restart Claude Desktop afterwards.
+Restart Claude Desktop afterwards. If it says it cannot find `npx`, put the full path that
+`which npx` prints (`where npx` on Windows) in `command`.
+
+### Other apps
+
+Any app that supports local MCP servers (Cursor, VS Code, Windsurf…) takes the same command:
+`npx -y escriba-mcp`, with the settings above as environment variables.
+
+### From a clone of this repository
+
+Run `npm install` in `mcp/` and use `node /absolute/path/to/escriba/mcp/server.js` as the
+command instead of `npx -y escriba-mcp`.
 
 ### Where the transcripts are
 
@@ -96,4 +106,16 @@ npm test
 runs the unit tests of `meetings.js` and `e2e.js`, which starts the real server as a child
 process and calls every tool through the SDK's client, against a temporary folder of
 invented transcripts. The unit tests need no dependencies and also run with the
-repository's `npm test`.
+repository's `npm test`. With `ESCRIBA_SERVER=/path/to/server.js`, `e2e.js` tests another copy
+of the server, such as the one installed from the npm package; CI does that on every push.
+
+## Publishing
+
+Bump `version` in `package.json`, then from `mcp/`:
+
+```
+npm publish
+```
+
+`prepack` copies the extension's parser and the license into the package, and `postpack`
+removes them. `npm pack --dry-run` lists what would be published.

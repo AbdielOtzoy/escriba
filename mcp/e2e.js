@@ -19,7 +19,8 @@ before(async () => {
   await client.connect(
     new StdioClientTransport({
       command: process.execPath,
-      args: [path.join(import.meta.dirname, 'server.js')],
+      // ESCRIBA_SERVER: the server of an installed npm package instead (CI tests the tarball).
+      args: [process.env.ESCRIBA_SERVER || path.join(import.meta.dirname, 'server.js')],
       env: { ESCRIBA_DIR: dir, ESCRIBA_SELF_NAME: 'Lucía Ferrer' },
     }),
   );

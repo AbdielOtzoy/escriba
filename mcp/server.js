@@ -38,7 +38,10 @@ const reply = (text) => ({ content: [{ type: /** @type {const} */ ('text'), text
 /** @param {unknown} value */
 const json = (value) => reply(JSON.stringify(value, null, 2));
 
-const server = new McpServer({ name: 'escriba', version: '0.1.0' });
+const { version } = JSON.parse(
+  fs.readFileSync(path.join(import.meta.dirname, 'package.json'), 'utf8'),
+);
+const server = new McpServer({ name: 'escriba', version });
 
 server.registerTool(
   'list_meetings',

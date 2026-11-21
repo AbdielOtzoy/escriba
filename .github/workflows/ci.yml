@@ -47,3 +47,10 @@ jobs:
           cache-dependency-path: mcp/package-lock.json
       - run: npm ci
       - run: npm test
+      # The npm package carries its own copy of the parser: test it installed, away from the repo.
+      - name: Test the npm package
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          npm pack --pack-destination "$RUNNER_TEMP"
+          npm install --prefix "$RUNNER_TEMP/pkg" "$RUNNER_TEMP"/escriba-mcp-*.tgz
+          ESCRIBA_SERVER="$RUNNER_TEMP/pkg/node_modules/escriba-mcp/server.js" node --test e2e.js

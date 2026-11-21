@@ -18,8 +18,12 @@ import vm from 'node:vm';
  */
 
 // The extension's own parser, loaded the way the browser does: a classic script that
-// declares the global `transcript`.
-const parserFile = path.join(import.meta.dirname, '..', 'src', 'shared', 'transcript.js');
+// declares the global `transcript`. The npm package carries a copy (made by `prepack`); in the
+// repository it is read from the extension's source.
+const bundled = path.join(import.meta.dirname, 'transcript.js');
+const parserFile = fs.existsSync(bundled)
+  ? bundled
+  : path.join(import.meta.dirname, '..', 'src', 'shared', 'transcript.js');
 const transcript = vm.runInThisContext(fs.readFileSync(parserFile, 'utf8') + '\ntranscript', {
   filename: parserFile,
 });
