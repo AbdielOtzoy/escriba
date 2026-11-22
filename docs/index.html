@@ -6,7 +6,7 @@
     <!-- The page itself proves the claim: nothing loads from anywhere but this site. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'none'; img-src 'self'; media-src 'self'; font-src 'self'; style-src 'unsafe-inline'"
+      content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'"
     />
     <meta name="color-scheme" content="dark" />
     <title>Escriba: Google Meet transcripts that stay on your computer</title>
@@ -100,8 +100,30 @@
       h1 em, h2 em { color: var(--amber); }
       .lead { max-width: 600px; margin: 22px 0 0; font-size: 1.12rem; color: var(--soft); }
       .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 30px 0 0; }
-      .video { width: 100%; max-width: 920px; margin: 52px 0 0; padding: 8px; background: var(--tint); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7); }
-      .video video { display: block; width: 100%; height: auto; border-radius: 13px; background: #000; }
+      /* The hero picture: a call whose transcript fills in, tilted back and fading into the page.
+         Plain HTML so it uses the page's colours; with reduced motion it rests fully written. */
+      .live { width: 100%; max-width: 920px; margin: 52px 0 0; perspective: 1600px; }
+      .h-win { display: flex; flex-direction: column; border: 1px solid var(--line); border-bottom: 0; border-radius: 18px 18px 0 0; background: #0f1d40; text-align: left; overflow: hidden; transform: rotateX(14deg); transform-origin: top center; box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7); -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+      .h-bar { display: flex; align-items: center; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+      .h-bar > i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); }
+      .h-url { flex: 1; min-width: 0; margin-left: 6px; padding: 4px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.07); color: var(--soft); font: 0.8rem/1.4 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .h-rec { padding: 4px 7px; border-radius: 6px; background: var(--amber); color: var(--navy); font: 700 0.68rem/1 var(--mono); }
+      .h-rec::before { content: '●'; margin-right: 4px; }
+      .h-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 14px; min-height: 360px; padding: 14px; }
+      .h-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .h-tiles span { display: grid; place-items: center; min-height: 120px; border-radius: 12px; background: rgba(255, 255, 255, 0.06); font: 500 1.6rem var(--serif); }
+      .h-panel { display: flex; flex-direction: column; gap: 9px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, 0.04); }
+      .h-panel > p { margin: 0; }
+      .h-head { display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.95rem; }
+      .h-head small { color: var(--soft); font: 400 0.78rem var(--mono); }
+      .h-line { padding: 9px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.06); font-size: 0.9rem; }
+      .h-line b { margin-right: 7px; }
+      .h-line time { color: var(--amber); font: 0.78rem var(--mono); }
+      .h-line span { display: block; color: var(--soft); }
+      @media (max-width: 640px) {
+        .h-body { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+        .h-tiles { display: none; }
+      }
 
       section.block { padding-top: 120px; }
       h2 { margin: 0; font-size: clamp(2.1rem, 4.5vw, 3rem); line-height: 1.08; }
@@ -281,6 +303,14 @@
       footer .legal { flex-basis: 100%; }
 
       @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+      @keyframes h-line1 { 0%, 4% { opacity: 0; transform: translateY(8px); } 8%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+      @keyframes h-line2 { 0%, 22% { opacity: 0; transform: translateY(8px); } 26%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+      @keyframes h-line3 { 0%, 42% { opacity: 0; transform: translateY(8px); } 46%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+      @keyframes h-line4 { 0%, 62% { opacity: 0; transform: translateY(8px); } 66%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; } }
+      @keyframes h-speak1 { 0%, 4%, 22%, 62%, 82%, 100% { box-shadow: inset 0 0 0 0 transparent; } 6%, 20%, 64%, 80% { box-shadow: inset 0 0 0 2px var(--amber); } }
+      @keyframes h-speak2 { 0%, 22%, 42%, 100% { box-shadow: inset 0 0 0 0 transparent; } 24%, 40% { box-shadow: inset 0 0 0 2px var(--amber); } }
+      @keyframes h-speak3 { 0%, 42%, 62%, 100% { box-shadow: inset 0 0 0 0 transparent; } 44%, 60% { box-shadow: inset 0 0 0 2px var(--amber); } }
+      @keyframes h-blink { 50% { opacity: 0; } }
       @keyframes glow { from { opacity: 0.55; transform: translateX(-50%) scale(0.96); } to { opacity: 1; transform: translateX(-50%) scale(1.04); } }
       @media (prefers-reduced-motion: no-preference) {
         /* The hero comes in piece by piece when the page opens. */
@@ -290,6 +320,17 @@
         .hero > :nth-child(4) { animation-delay: 0.24s; }
         .hero > :nth-child(5) { animation-delay: 0.36s; }
         .hero::before { animation: glow 6s ease-in-out infinite alternate; }
+        /* One 12 s loop: each person speaks in turn and their line appears in the transcript. */
+        .h-rec::before { animation: h-blink 1.6s steps(2) infinite; }
+        .h-line { animation: 12s infinite both; }
+        .h-line:nth-of-type(1) { animation-name: h-line1; }
+        .h-line:nth-of-type(2) { animation-name: h-line2; }
+        .h-line:nth-of-type(3) { animation-name: h-line3; }
+        .h-line:nth-of-type(4) { animation-name: h-line4; }
+        .h-tiles span { animation: 12s infinite; }
+        .h-tiles span:nth-child(1) { animation-name: h-speak1; }
+        .h-tiles span:nth-child(2) { animation-name: h-speak2; }
+        .h-tiles span:nth-child(3) { animation-name: h-speak3; }
         /* The rest rises as it scrolls into view; browsers without scroll timelines show it as is. */
         @supports (animation-timeline: view()) {
           .block h2, .block .eyebrow, .block .intro, .ai pre, .ai .note, .facts, .install {
@@ -351,22 +392,25 @@
           <a class="button primary" href="https://chromewebstore.google.com/detail/escriba-for-google-meet/pefbdollankflnpigefmonogfhnehjfc">Install</a>
           <a class="button" href="https://github.com/AbdielOtzoy/escriba">View on GitHub</a>
         </p>
-        <figure id="video" class="video">
-          <video
-            autoplay
-            muted
-            loop
-            playsinline
-            controls
-            preload="auto"
-            poster="video/escriba-hero.jpg"
-            width="1280"
-            height="720"
-            aria-label="Escriba in a Google Meet call: it reads the captions, saves the transcript as Markdown, shows it on the transcripts page, and an AI assistant answers what was agreed"
-          >
-            <source src="video/escriba-hero.mp4" type="video/mp4" />
-          </video>
-        </figure>
+        <div class="live" role="img" aria-label="A Google Meet call with Escriba recording: each thing a person says appears in the transcript with their name and the time">
+          <div class="h-win" aria-hidden="true">
+            <div class="h-bar">
+              <i></i><i></i><i></i>
+              <span class="h-url">meet.google.com/abc-defg-hij</span>
+              <span class="h-rec">REC</span>
+            </div>
+            <div class="h-body">
+              <div class="h-tiles"><span>A</span><span>M</span><span>P</span><span>S</span></div>
+              <div class="h-panel">
+                <div class="h-head">Transcript <small>4 turns</small></div>
+                <p class="h-line"><b>Ana</b><time>10:31</time><span>Let’s start with the release.</span></p>
+                <p class="h-line"><b>Marco</b><time>10:32</time><span>Export ships on Friday.</span></p>
+                <p class="h-line"><b>Priya</b><time>10:33</time><span>I’ll update the docs today.</span></p>
+                <p class="h-line"><b>Ana</b><time>10:34</time><span>Perfect, that’s everything.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="wrap block" aria-labelledby="how">

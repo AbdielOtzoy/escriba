@@ -8,7 +8,7 @@ subtítulos que Meet ya genera.
 
 <img src="docs/images/escriba.gif" width="860" alt="Al salir de una llamada de Meet, la transcripción se descarga como archivo Markdown y luego se encuentra buscando en la página de transcripciones">
 
-[Video (33 s)](https://abdielotzoy.github.io/escriba/#video) · [Sitio web](https://abdielotzoy.github.io/escriba/) · [Política de privacidad](https://abdielotzoy.github.io/escriba/privacy) · [Cambios](CHANGELOG.md) · [Read in English](README.md)
+[Video (33 s)](docs/video/escriba.mp4) · [Sitio web](https://abdielotzoy.github.io/escriba/) · [Política de privacidad](https://abdielotzoy.github.io/escriba/privacy) · [Cambios](CHANGELOG.md) · [Read in English](README.md)
 
 ## Instalar (Brave, Chrome o Edge)
 

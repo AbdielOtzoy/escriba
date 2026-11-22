@@ -8,7 +8,7 @@ captions Meet already generates.
 
 <img src="docs/images/escriba.gif" width="860" alt="Leaving a Meet call: the transcript is downloaded as a Markdown file, then found by searching the transcripts page">
 
-[Video (33 s)](https://abdielotzoy.github.io/escriba/#video) · [Website](https://abdielotzoy.github.io/escriba/) · [Privacy policy](https://abdielotzoy.github.io/escriba/privacy) · [Changelog](CHANGELOG.md) · [Leer en español](README.es.md)
+[Video (33 s)](docs/video/escriba.mp4) · [Website](https://abdielotzoy.github.io/escriba/) · [Privacy policy](https://abdielotzoy.github.io/escriba/privacy) · [Changelog](CHANGELOG.md) · [Leer en español](README.es.md)
 
 ## Install (Brave, Chrome or Edge)
 
