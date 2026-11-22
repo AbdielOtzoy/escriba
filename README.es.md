@@ -12,14 +12,13 @@ subtítulos que Meet ya genera.
 
 ## Instalar (Brave, Chrome o Edge)
 
-1. Clona o descarga esta carpeta.
-2. Abre `brave://extensions` (o `chrome://extensions`).
-3. Activa **Modo de desarrollador**.
-4. **Cargar extensión sin empaquetar** y elige esta carpeta.
-5. En `brave://settings/downloads` desactiva **Preguntar dónde guardar cada archivo**;
+1. Instálala desde la [Chrome Web Store](https://chromewebstore.google.com/detail/escriba-for-google-meet/pefbdollankflnpigefmonogfhnehjfc).
+2. En `brave://settings/downloads` desactiva **Preguntar dónde guardar cada archivo**;
    si queda activo, el navegador pregunta en cada reunión.
 
-No hay nada que compilar: la extensión corre directamente desde los archivos fuente.
+Para correrla desde el código, abre `brave://extensions` (o `chrome://extensions`), activa
+**Modo de desarrollador**, pulsa **Cargar extensión sin empaquetar** y elige esta carpeta.
+No hay nada que compilar.
 
 ## Usar
 

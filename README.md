@@ -12,14 +12,12 @@ captions Meet already generates.
 
 ## Install (Brave, Chrome or Edge)
 
-1. Clone or download this folder.
-2. Open `brave://extensions` (or `chrome://extensions`).
-3. Turn on **Developer mode**.
-4. **Load unpacked** and pick this folder.
-5. In `brave://settings/downloads` turn off **Ask where to save each file before
+1. Install it from the [Chrome Web Store](https://chromewebstore.google.com/detail/escriba-for-google-meet/pefbdollankflnpigefmonogfhnehjfc).
+2. In `brave://settings/downloads` turn off **Ask where to save each file before
    downloading**; while it is on, the browser asks on every meeting.
 
-Nothing needs to be built: the extension runs straight from the source files.
+To run it from source instead, open `brave://extensions` (or `chrome://extensions`), turn on
+**Developer mode**, press **Load unpacked** and pick this folder. Nothing needs to be built.
 
 ## Use
 
