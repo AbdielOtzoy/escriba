@@ -1,6 +1,6 @@
 ---
 title: How I transcribe Google Meet without bots or audio
-description: A browser extension that turns Meet's own captions into Markdown, with speaker names, no bot, no audio and no network. What it took to make it hold up.
+description: A browser extension that turns Meet's own captions into Markdown, with speaker names, no bot, no audio and no network, and a local MCP server that lets an AI assistant search them. What it took to make it hold up.
 date: 2026-11-19
 tags: [chromeextension, javascript, webdev, privacy]
 canonical_url: https://abdielotzoy.github.io/escriba/articles/transcribing-google-meet-without-bots
@@ -47,6 +47,12 @@ One rule shaped everything after that: **no network at all.** No server, no anal
 remote code. The permissions are `downloads`, `storage`, `unlimitedStorage`,
 `notifications` and access to `meet.google.com`. The transcript only leaves the computer if
 you copy it somewhere.
+
+Those files are also the input for the other half of the project: a local
+[MCP](https://modelcontextprotocol.io) server that lets Claude, Cursor or any MCP client
+list, search and read your meetings, so you can ask _"what did we agree in Tuesday's sync?"_
+without a meeting bot or a transcription service in between. The extension's job is to make that
+data complete and trustworthy, which is what most of this article is about.
 
 ![The transcripts page, with search, copy, download and delete](../images/transcripts.png)
 
@@ -303,29 +309,40 @@ Types still get checked. Every exported function has JSDoc, and `tsc --noEmit` r
 `checkJs` and `strict` over `src/`, alongside ESLint, Prettier and the tests in one
 `npm run check`.
 
-## Bonus: letting Claude search my meetings
+## Asking an AI about my meetings
 
-Once there was a folder of Markdown files, I wanted to ask questions about it. A separate
-package, `mcp/`, holds a local [MCP](https://modelcontextprotocol.io) server that Claude
-Code or Claude Desktop starts over stdio. The server is about 80 lines and exposes three
-read-only tools, `list_meetings`, `search_transcripts` and `read_meeting`, filtered by date
-and participant. It makes no network requests and never writes.
+A folder of Markdown files with front matter is a good input for a model. A separate
+package, [`escriba-mcp`](https://www.npmjs.com/package/escriba-mcp), is a local MCP server
+that Claude Code, Claude Desktop, Cursor or VS Code start as a child process over stdio. It
+exposes three read-only tools, `list_meetings`, `search_transcripts` and `read_meeting`,
+filtered by date and participant. It makes no network requests and never writes.
+
+The tools are designed for the model that calls them: descriptions written as instructions,
+a search capped at 50 hits that says when it was capped so the model narrows the query
+instead of filling its context, accent-insensitive matching (`ibanez` finds `Ibáñez`), and a
+setting that replaces Meet's "You" with your name so _"what did I commit to?"_ works. The
+file name `read_meeting` receives is chosen by a model, so it is treated as untrusted input:
+anything with a directory part is refused.
 
 It does not have its own parser. Because the extension's files are plain classic scripts,
 the server loads the same `transcript.js` the browser runs:
 
 ```js
-const parserFile = path.join(import.meta.dirname, '..', 'src', 'shared', 'transcript.js');
 const transcript = vm.runInThisContext(fs.readFileSync(parserFile, 'utf8') + '\ntranscript', {
   filename: parserFile,
 });
 ```
 
-Its dependencies stay in that package, out of the extension. Setup is one command:
+Its dependencies (the MCP SDK and Zod) stay in that package, out of the extension. Setup
+is one command:
 
 ```
-claude mcp add escriba --env ESCRIBA_SELF_NAME="Your Name" -- node /absolute/path/to/escriba/mcp/server.js
+claude mcp add escriba --env ESCRIBA_SELF_NAME="Your Name" -- npx -y escriba-mcp
 ```
+
+Why tools instead of RAG, why stdio instead of HTTP, how it finds the Downloads folder on
+each system and how the published package is tested are in
+[a separate article about the MCP server](giving-an-ai-read-access-to-my-meetings).
 
 ## Limits
 
@@ -346,8 +363,9 @@ find them in a meeting that mattered:
   adapter and its fixtures are updated. The watchdog makes that visible; it does not
   prevent it.
 
-What comes next is mostly maintenance: keeping up with Meet, and getting it onto the Chrome
-Web Store so that installing it does not require developer mode.
+Escriba is now on the
+[Chrome Web Store](https://chromewebstore.google.com/detail/escriba-for-google-meet/pefbdollankflnpigefmonogfhnehjfc),
+and the MCP server on npm. What comes next is mostly maintenance: keeping up with Meet.
 
 The code is MIT-licensed at
 [github.com/AbdielOtzoy/escriba](https://github.com/AbdielOtzoy/escriba), and the
